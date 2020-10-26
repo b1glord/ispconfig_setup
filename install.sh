@@ -348,7 +348,6 @@ elif [ -f /etc/redhat-release ]; then # /etc/centos-release
 	if [ "$CFG_ANTIVIRUS" == "yes" ]; then
 	InstallAntiVirus
 	fi
-	source $APWD/distros/$DISTRO/install_webserver.sh
 	InstallWebServer
 	InstallFTP 
 	if [ "$CFG_VARNISH" == "yes" ]; then

@@ -26,11 +26,11 @@ AskQuestions() {
 	done
 	CFG_MTA=${CFG_MTA,,}
 
-	#if (whiptail --title "Quota" --backtitle "$WT_BACKTITLE" --yesno "Setup user quota?" 10 50) then
-#	CFG_QUOTA=no
- # else
-	#CFG_QUOTA=no
-	#fi
+	if (whiptail --title "Quota" --backtitle "$WT_BACKTITLE" --yesno "Setup user quota?" 10 50) then
+	CFG_QUOTA=yes
+  	else
+	CFG_QUOTA=no
+	fi
 
 	while [[ ! "$CFG_ANTIVIRUS" =~ $RE ]]
 	do
