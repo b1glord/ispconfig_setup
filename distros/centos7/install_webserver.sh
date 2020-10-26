@@ -126,8 +126,8 @@ echo -e "[${green}DONE${NC}]\n"
 	sed -i "s/;date.timezone =/date.timezone=\"${TIME_ZONE//\//\\/}\"/" /etc/php.ini
 	sed -i "/cgi.fix_pathinfo=1/cgi.fix_pathinfo=0" /etc/php.ini
 	
-	cd /usr/lib/mailman/cgi-bin/
-	ln -s ./ mailman
+#	cd /usr/lib/mailman/cgi-bin/
+#	ln -s ./ mailman
 	
 	systemctl enable php-fpm
 	systemctl start php-fpm
