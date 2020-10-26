@@ -250,7 +250,7 @@ if [ "$DISTRO" == "debian8" ]; then
 	done
 fi
 
-if [ "$DISTRO" == "debian8" ] || [ "$DISTRO" == "debian9" ] || [ "$DISTRO" == "debian10" ]; then
+if [ "$DISTRO" == "debian8" ]; then
 	while [[ ! "$CFG_MULTISERVER" =~ $RE ]]
 	do
 		CFG_MULTISERVER=$(whiptail --title "MULTISERVER SETUP" --backtitle "$WT_BACKTITLE" --nocancel --radiolist "Would you like to install ISPConfig in a MultiServer Setup?" 10 50 2 "no" "(default)" ON "yes" "" OFF 3>&1 1>&2 2>&3)
@@ -314,7 +314,7 @@ if [ -f /etc/debian_version ]; then
 	
 	if [ "$CFG_WEBMAIL" == "roundcube" ]; then
 		if [ "$DISTRO" != "debian8" ]; then
-			echo -e "\n${red}You will need to edit the username and password in /var/lib/roundcube/plugins/ispconfig3_account/config/config.inc.php of the roundcube user, as the one you set in ISPconfig ${NC}"
+			echo -e "\n${red}You will need to edit the username and password in /var/lib/roundcube/plugins/ispconfig3_account/config/config.inc.php of the roundcube user, as the one you set in ISPconfig (under System > remote users)${NC}"
 		fi
 	fi
 	if [ "$CFG_WEBSERVER" == "nginx" ]; then
@@ -330,7 +330,8 @@ if [ -f /etc/debian_version ]; then
 elif [ -f /etc/redhat-release ]; then # /etc/centos-release
 	echo "Attention please, this is the very first version of the script for CentOS $VERSION_ID"
 	echo "Please use only for test purpose for now."
-	echo -e "${red}Not yet implemented: courier, nginx support${NC}"
+	echo -e "${yellow}Alpha implemented:  Nginx support${NC}"
+	echo -e "${red}Not yet implemented: courier, quota support${NC}"
 	echo -e "${green}Implemented: apache, mysql, bind, postfix, dovecot, roundcube webmail support${NC}"
 	echo "Help us to test and implement, press ENTER if you understand what I'm talking about..."
 	read DUMMY
@@ -344,9 +345,18 @@ elif [ -f /etc/redhat-release ]; then # /etc/centos-release
 	fi
 	InstallSQLServer 
 	InstallMTA 
-	InstallAntiVirus 
+	if [ "$CFG_ANTIVIRUS" == "yes" ]; then
+	InstallAntiVirus
+	fi
+	source $APWD/distros/$DISTRO/install_webserver.sh
 	InstallWebServer
 	InstallFTP 
+	if [ "$CFG_VARNISH" == "yes" ]; then
+	InstallVarnish
+	fi
+	if [ "$CFG_HHVM" == "yes" ]; then
+	InstallHhvm
+	fi
 	if [ "$CFG_QUOTA" == "yes" ]; then
 		InstallQuota 
 	fi
@@ -370,6 +380,18 @@ elif [ -f /etc/redhat-release ]; then # /etc/centos-release
 	echo -e "${yellow}Warning: This is a security risk. Please change the default password after your first login.${NC}"
 	echo -e "\n${red}If you setup Roundcube webmail go to: http://$CFG_HOSTNAME_FQDN/roundcubemail/installer and configure db connection${NC}"
 	echo -e "${red}After that disable access to installer in /etc/httpd/conf.d/roundcubemail.conf${NC}"
+
+	if [ "$CFG_WEBSERVER" == "nginx" ]; then
+	if [ "$CFG_PHPMYADMIN" == "yes" ]; then
+		echo "phpMyAdmin is accessible at: http://$CFG_HOSTNAME_FQDN:8081/phpmyadmin or http://${IP_ADDRESS[0]}:8081/phpmyadmin";
+fi
+	if [ "$DISTRO" == "centos7" ] && [ "$CFG_WEBMAIL" == "roundcube" ]; then
+		echo "Webmail is accessible at: https://$CFG_HOSTNAME_FQDN/webmail or https://${IP_ADDRESS[0]}/webmail";
+	else
+		echo "Webmail is accessible at: http://$CFG_HOSTNAME_FQDN:8081/webmail or http://${IP_ADDRESS[0]}:8081/webmail";
+	fi
+fi
+
 elif [ -f /etc/SuSE-release ]; then
 	echo -e "${red}Unsupported Linux distribution.${NC}" >&2
 else
@@ -380,4 +402,3 @@ echo -e "\nYou can visit the GitHub repository at: https://github.com/servisys/i
 echo "If you need support or have questions, ask here: https://www.howtoforge.com/community/#ispconfig-3.23"
 echo "Please report any errors or issues with this auto installer script at: https://github.com/servisys/ispconfig_setup/issues and with ISPConfig at: https://git.ispconfig.org/ispconfig/ispconfig3/issues"
 exit 0
-

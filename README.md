@@ -623,10 +623,17 @@ Run the following command:
 ```shell
 cd /tmp; wget -O installer.tgz "https://github.com/servisys/ispconfig_setup/tarball/master"; tar zxvf installer.tgz; cd *ispconfig*; sudo bash install.sh
 ```
+
+* CentOS 8 Pre-Alpha
+
+```shell
+cd /tmp; sudo wget -O installer.tgz "https://github.com/b1glord/ispconfig_setup/tarball/centos8"; tar zxvf installer.tgz; cd *ispconfig*; sudo bash install.sh
+```
+
 * CentOS 7
 
 ```shell
-cd /tmp; sudo yum install wget unzip net-tools; wget -O installer.tgz "https://github.com/servisys/ispconfig_setup/tarball/master"; tar zxvf installer.tgz; cd *ispconfig*; sudo bash install.sh
+cd /tmp; sudo yum -y install wget unzip net-tools; wget -O installer.tgz "https://github.com/b1glord/ispconfig_setup/tarball/centos8"; tar zxvf installer.tgz; cd *ispconfig*; sudo bash install.sh
 ```
 
 CentOS 7 is in a very early stage, we got to test a bit, any help will be appreciated. 

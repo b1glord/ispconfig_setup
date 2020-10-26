@@ -168,11 +168,18 @@ CheckLinux() {
 	elif echo "$ID" | grep -iq "centos"; then
 	
 		#---------------------------------------------------------------------
-		#	CentOS
+		#	CentOS 7
 		#---------------------------------------------------------------------
 
 		if echo "$VERSION_ID" | grep -iq "7"; then
 			DISTRO=centos7
+		
+		#---------------------------------------------------------------------
+		#	CentOS 8
+		#---------------------------------------------------------------------
+
+		elif echo "$VERSION_ID" | grep -iq "8"; then
+			DISTRO=centos8
 		fi
 	
 	elif echo "$ID" | grep -iq "opensuse"; then
