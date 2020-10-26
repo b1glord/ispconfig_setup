@@ -22,6 +22,7 @@ InstallWebServer() {
 	yum -y install curl curl-devel perl-libwww-perl ImageMagick libxml2 libxml2-devel mod_fcgid php-cli httpd-devel php-fpm wget
 	echo -e "[${green}DONE${NC}]\n"
 
+	sed -i "s%</Directory>%#</Directory>%" /etc/httpd/conf.d/php.conf
 	sed -i "s/error_reporting = E_ALL \& ~E_DEPRECATED \& ~E_STRICT/error_reporting = E_ALL \& ~E_NOTICE \& ~E_DEPRECATED/" /etc/php.ini
 	sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=1/" /etc/php.ini
 	TIME_ZONE=$(echo "$TIME_ZONE" | sed -n 's/ (.*)$//p')
