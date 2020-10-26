@@ -26,6 +26,7 @@ InstallWebServer() {
 	sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=1/" /etc/php.ini
 	TIME_ZONE=$(echo "$TIME_ZONE" | sed -n 's/ (.*)$//p')
 	sed -i "s/;date.timezone =/date.timezone=\"${TIME_ZONE}\"/" /etc/php.ini
+	sed -i "s%</Directory>%#</Directory>%" /etc/httpd/conf.d/php.conf
 	cd /usr/local/src
 	yum -y install apr-devel
 	wget -q http://suphp.org/download/suphp-0.7.2.tar.gz
@@ -100,7 +101,6 @@ InstallWebServer() {
     sed -i "s/Require ip 127.0.0.1/#Require ip 127.0.0.1/" /etc/httpd/conf.d/phpMyAdmin.conf
     sed -i '0,/Require ip ::1/ s/Require ip ::1/#Require ip ::1\n       Require all granted/' /etc/httpd/conf.d/phpMyAdmin.conf
 	sed -i "s/'cookie'/'http'/" /etc/phpMyAdmin/config.inc.php
-	sed -i "s%</Directory>%#</Directory>%" /etc/httpd/conf.d/php.conf
 	systemctl enable  httpd.service
     	systemctl restart  httpd.service
 	# echo -e "${green}done! ${NC}\n"
