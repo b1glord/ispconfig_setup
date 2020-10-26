@@ -8,11 +8,15 @@ InstallWebServer() {
 	CFG_NGINX=n
 	CFG_APACHE=y
   echo -n "Installing Web server (Apache)... "
-    yum -y install httpd
+    yum -y install httpd mod_ssl
 	echo -e "[${green}DONE${NC}]\n"
 
-	echo -n "Installing PHP and modules... "
-	yum -y install mod_ssl php php-mysql php-mbstring
+		echo -n "Installing PHP ... "
+	yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+    yum -y install http://rpms.remirepo.net/enterprise/remi-release-7.rpm
+	yum-config-manager --enable remi-php73
+	yum -y install php
+	echo -n "Installing PHP modules... "
 	yum -y install php-devel php-gd php-imap php-ldap php-mysql php-odbc php-pear php-xml php-xmlrpc php-pecl-apc php-mbstring php-mcrypt php-mssql php-snmp php-soap php-tidy
 	echo -n "Installing needed programs for PHP and Apache... "
 	yum -y install curl curl-devel perl-libwww-perl ImageMagick libxml2 libxml2-devel mod_fcgid php-cli httpd-devel php-fpm wget
