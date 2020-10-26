@@ -41,6 +41,7 @@ AskQuestions() {
 	do
 		CFG_VARNISH=$(whiptail --title "Install Varnish Cache" --backtitle "$WT_BACKTITLE" --nocancel --radiolist "Do you want to install Varnish Cache?" 10 50 2 "no" "(default)" ON "yes" "" OFF 3>&1 1>&2 2>&3)
 	done
+	CFG_VARNISH=${CFG_VARNISH,,}
 	
 	while [[ ! "$CFG_HHVM" =~ $RE ]]
 	do
