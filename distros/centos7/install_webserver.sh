@@ -26,7 +26,7 @@ InstallWebServer() {
 	sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=1/" /etc/php.ini
 	TIME_ZONE=$(echo "$TIME_ZONE" | sed -n 's/ (.*)$//p')
 	sed -i "s/;date.timezone =/date.timezone=\"${TIME_ZONE}\"/" /etc/php.ini
-	sed -i "s/<\/Directory>/#<\/Directory>/" /etc/httpd/conf.d/php.conf
+	
 	cd /usr/local/src
 	yum -y install apr-devel
 	wget -q http://suphp.org/download/suphp-0.7.2.tar.gz
@@ -76,6 +76,7 @@ InstallWebServer() {
 	
 	sed -i '0,/<FilesMatch \\.php$>/ s/<FilesMatch \\.php$>/<Directory \/usr\/share>\n<FilesMatch \\.php$>/' /etc/httpd/conf.d/php.conf
 	sed -i '0,/<\/FilesMatch>/ s/<\/FilesMatch>/<\/FilesMatch>\n<\/Directory>/' /etc/httpd/conf.d/php.conf
+	sed -i 's/<\/Directory>/#<\/Directory>/' /etc/httpd/conf.d/php.conf
 	
     systemctl start php-fpm.service
     systemctl enable php-fpm.service
