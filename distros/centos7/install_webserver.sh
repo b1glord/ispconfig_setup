@@ -132,9 +132,6 @@ echo -e "[${green}DONE${NC}]\n"
 	sed -i "s/;date.timezone =/date.timezone=\"${TIME_ZONE//\//\\/}\"/" /etc/php.ini
 	sed -i "/cgi.fix_pathinfo=1/cgi.fix_pathinfo=0" /etc/php.ini
 	
-#	cd /usr/lib/mailman/cgi-bin/
-#	ln -s ./ mailman
-	
 	systemctl enable php-fpm
 	systemctl start php-fpm
 	systemctl start nginx.service
@@ -164,8 +161,12 @@ echo 'OPTIONS="-u $FCGI_USER -g $FCGI_GROUP -s $FCGI_SOCKET -S $FCGI_EXTRA_OPTIO
 	systemctl start spawn-fcgi
 	systemctl restart nginx.service
 	systemctl restart php-fpm
-	systemctl restart varnish.service
+	#systemctl restart varnish.service
 	# echo -e "${green}done! ${NC}\n"
+
+# Configure Mailman
+#	cd /usr/lib/mailman/cgi-bin/
+#	ln -s ./ mailman
 
   echo "Installing phpMyAdmin... "
 	yum -y install phpmyadmin
