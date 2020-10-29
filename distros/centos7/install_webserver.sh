@@ -8,18 +8,18 @@ InstallWebServer() {
 	CFG_NGINX=n
 	CFG_APACHE=y
   echo -n "Installing Web server (Apache)... "
-    yum -y install httpd mod_ssl
+    yum_install httpd mod_ssl
 	echo -e "[${green}DONE${NC}]\n"
 
 		echo -n "Installing PHP ... "
 	yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
     yum -y install http://rpms.remirepo.net/enterprise/remi-release-7.rpm
 	yum-config-manager --enable remi-php73
-	yum -y install php
+	yum_install php
 	echo -n "Installing PHP modules... "
-	yum -y install php-devel php-gd php-imap php-ldap php-mysql php-odbc php-pear php-xml php-xmlrpc php-pecl-apc php-mbstring php-mcrypt php-mssql php-snmp php-soap php-tidy
+	yum_install php-devel php-gd php-imap php-ldap php-mysql php-odbc php-pear php-xml php-xmlrpc php-pecl-apc php-mbstring php-mcrypt php-mssql php-snmp php-soap php-tidy
 	echo -n "Installing needed programs for PHP and Apache... "
-	yum -y install curl curl-devel perl-libwww-perl ImageMagick libxml2 libxml2-devel mod_fcgid php-cli httpd-devel php-fpm wget
+	yum_install curl curl-devel perl-libwww-perl ImageMagick libxml2 libxml2-devel mod_fcgid php-cli httpd-devel php-fpm wget
 	echo -e "[${green}DONE${NC}]\n"
 
 	sed -i "s/error_reporting = E_ALL \& ~E_DEPRECATED \& ~E_STRICT/error_reporting = E_ALL \& ~E_NOTICE \& ~E_DEPRECATED/" /etc/php.ini
@@ -28,7 +28,7 @@ InstallWebServer() {
 	sed -i "s/;date.timezone =/date.timezone=\"${TIME_ZONE}\"/" /etc/php.ini
 	
 	cd /usr/local/src
-	yum -y install apr-devel
+	yum_install apr-devel
 	wget -q http://suphp.org/download/suphp-0.7.2.tar.gz
 	tar zxf suphp-0.7.2.tar.gz
 	wget -q -O suphp.patch https://raw.githubusercontent.com/b1glord/ispconfig_setup_extra/master/suphp.patch
@@ -84,7 +84,7 @@ InstallWebServer() {
 	
 	#removed python support for now
 	echo -n "Installing mod_python... "
-	yum -y install python-devel
+	yum_install python-devel
 	cd /usr/local/src/
 	wget -q http://dist.modpython.org/dist/mod_python-3.5.0.tgz
 	tar xfz mod_python-3.5.0.tgz
@@ -110,7 +110,7 @@ InstallWebServer() {
   	CFG_NGINX=y
 	CFG_APACHE=n
   echo -n "Installing Web server (nginx)... "
-	yum -y install nginx
+	yum_install nginx
 	systemctl stop httpd.service
 	systemctl disable httpd.service
 	systemctl enable nginx.service
@@ -120,11 +120,11 @@ echo -e "[${green}DONE${NC}]\n"
 	yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
     yum -y install http://rpms.remirepo.net/enterprise/remi-release-7.rpm
 	yum-config-manager --enable remi-php73
-	yum -y install php
+	yum_install php
 	echo -n "Installing PHP modules... "
-	yum -y install php-devel php-gd php-imap php-ldap php-mysql php-odbc php-pear php-xml php-xmlrpc php-pecl-apc php-mbstring php-mcrypt php-mssql php-snmp php-soap php-tidy
+	yum_install php-devel php-gd php-imap php-ldap php-mysql php-odbc php-pear php-xml php-xmlrpc php-pecl-apc php-mbstring php-mcrypt php-mssql php-snmp php-soap php-tidy
 	echo -n "Installing needed programs for PHP and Nginx... "
-	yum -y install curl curl-devel perl-libwww-perl ImageMagick libxml2 libxml2-devel mod_fcgid php-cli httpd-devel php-fpm wget
+	yum_install curl curl-devel perl-libwww-perl ImageMagick libxml2 libxml2-devel mod_fcgid php-cli httpd-devel php-fpm wget
 	echo -e "[${green}DONE${NC}]\n"
 	
 	sed -i "/; error_reporting/ a error_reporting = E_ALL & ~E_NOTICE" /etc/php.ini
@@ -137,7 +137,7 @@ echo -e "[${green}DONE${NC}]\n"
 	systemctl start nginx.service
 	
   echo -n "Installing fcgiwrap... "
-	yum -y install fcgiwrap spawn-fcgi fcgi-devel
+	yum_install fcgiwrap spawn-fcgi fcgi-devel
 
 # modify the /etc/sysconfig/spawn-fcgi file as follows:
 echo '# You must set some working options before the "spawn-fcgi" service will work.' >> /etc/sysconfig/spawn-fcgi
@@ -167,7 +167,7 @@ echo 'OPTIONS="-u $FCGI_USER -g $FCGI_GROUP -s $FCGI_SOCKET -S $FCGI_EXTRA_OPTIO
 # Configure Mailman
 #	cd /usr/lib/mailman/cgi-bin/
 #	ln -s ./ mailman
-cp -R /etc/nginx/sites-available/apps.vhost /etc/nginx/sites-available/default
+cp -R /etc/nginx/sites-available/ispconfig.vhost /etc/nginx/sites-available/default
 
   echo "Installing phpMyAdmin... "
 	yum -y install phpmyadmin
