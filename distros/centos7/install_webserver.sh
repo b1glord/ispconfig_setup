@@ -167,6 +167,7 @@ echo 'OPTIONS="-u $FCGI_USER -g $FCGI_GROUP -s $FCGI_SOCKET -S $FCGI_EXTRA_OPTIO
 # Configure Mailman
 #	cd /usr/lib/mailman/cgi-bin/
 #	ln -s ./ mailman
+cp -R /etc/nginx/sites-available/apps.vhost /etc/nginx/sites-available/default
 
   echo "Installing phpMyAdmin... "
 	yum -y install phpmyadmin
