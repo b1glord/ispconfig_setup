@@ -37,16 +37,25 @@ AskQuestions() {
 		CFG_ANTIVIRUS=$(whiptail --title "Install ANTIVIRUS" --backtitle "$WT_BACKTITLE" --nocancel --radiolist "Do you want to install Antivirus?" 10 50 2 "yes" "(default)" ON "no" "" OFF 3>&1 1>&2 2>&3)
 	done
 	
-	while [[ ! "$CFG_VARNISH" =~ $RE ]]
-	do
-		CFG_VARNISH=$(whiptail --title "Install Varnish" --backtitle "$WT_BACKTITLE" --nocancel --radiolist "Do you want to install Varnish Cache?" 10 50 2 "no" "(default)" ON "yes" "" OFF 3>&1 1>&2 2>&3)
-	done
-	#CFG_VARNISH=${CFG_VARNISH,,}
+#	while [[ ! "$CFG_VARNISH" =~ $RE ]]
+#	do
+#		CFG_VARNISH=$(whiptail --title "Install Varnish" --backtitle "$WT_BACKTITLE" --nocancel --radiolist "Do you want to install Varnish Cache?" 10 50 2 "no" "(default)" ON "yes" "" OFF 3>&1 1>&2 2>&3)
+#	done
+
 	
-	while [[ ! "$CFG_HHVM" =~ $RE ]]
-	do
-		CFG_HHVM=$(whiptail --title "Install HHVM" --backtitle "$WT_BACKTITLE" --nocancel --radiolist "Do you want to install HHVM?" 10 50 2 "no" "(default)" ON "yes" "" OFF 3>&1 1>&2 2>&3)
-	done
+#	while [[ ! "$CFG_HHVM" =~ $RE ]]
+#	do
+#		CFG_HHVM=$(whiptail --title "Install HHVM" --backtitle "$WT_BACKTITLE" --nocancel --radiolist "Do you want to install HHVM?" 10 50 2 "no" "(default)" ON "yes" "" OFF 3>&1 1>&2 2>&3)
+#	done
+
+	if echo "$ID" | grep -iq 'raspbian'; then
+		CFG_HHVM="no"
+	else
+		while [[ ! "$CFG_HHVM" =~ $RE ]]
+		do
+			CFG_HHVM=$(whiptail --title "HHVM" --backtitle "$WT_BACKTITLE" --nocancel --radiolist "Do you want to install HHVM (Hip Hop Virtual Machine) as PHP engine?" 10 50 2 "no" "(default)" ON "yes" "" OFF 3>&1 1>&2 2>&3)
+		done
+	fi
 
 	if [[ ! "$CFG_JKIT" =~ $RE ]]; then
 		if (whiptail --title "Jailkit" --backtitle "$WT_BACKTITLE" --yesno "Would you like to install Jailkit (it must be installed before ISPConfig)?" 10 50) then

@@ -1,6 +1,6 @@
-InstallHhvm() {
-  
-yum -y install cpp gcc-c++ cmake git psmisc {binutils,boost,jemalloc,numactl}-devel \
+InstallHHVM() {
+echo -n "Installing HHVM (Hip Hop Virtual Machine)... "
+yum_install cpp gcc-c++ cmake git psmisc {binutils,boost,jemalloc,numactl}-devel \
 {ImageMagick,sqlite,tbb,bzip2,openldap,readline,elfutils-libelf,gmp,lz4,pcre}-devel \
 lib{xslt,event,yaml,vpx,png,zip,icu,mcrypt,memcached,cap,dwarf}-devel \
 {unixODBC,expat,mariadb}-devel lib{edit,curl,xml2,xslt}-devel \
