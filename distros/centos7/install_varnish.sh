@@ -1,4 +1,13 @@
-InstallVarnish() {
+InstallVARNISH() {
+
+  echo -n "Installing Varnish Cache... "
+    yum -y install varnish
+  
+  echo -n "Configure Varnish Cache... "
+	  sed -i "s/VARNISH_LISTEN_PORT=6081/VARNISH_LISTEN_PORT=80/" /etc/varnish/varnish.params
+	  sed -i 's/    .port = "8080";/    .port = "8090";/' /etc/varnish/default.vcl
+    systemctl enable varnish.service
+
   if [ "$CFG_WEBSERVER" == "apache" ]; then
 	CFG_NGINX=n
 	CFG_APACHE=y
