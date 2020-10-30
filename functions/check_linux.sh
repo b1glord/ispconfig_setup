@@ -95,7 +95,24 @@ CheckLinux() {
 		elif echo "$VERSION_ID" | grep -iq "10"; then
 			DISTRO=debian10
 		fi
-	
+
+	if echo "$ID" | grep -iq "pardus"; then
+
+		#---------------------------------------------------------------------
+		#	Pardus 17 
+		#---------------------------------------------------------------------
+		
+		elif echo "$VERSION_ID" | grep -iq "17"; then
+			DISTRO=pardus17
+
+		#---------------------------------------------------------------------
+		#	Pardus 19 
+		#---------------------------------------------------------------------
+		
+		elif echo "$VERSION_ID" | grep -iq "19"; then
+			DISTRO=pardus19
+		fi
+
 	elif echo "$ID" | grep -iq "raspbian"; then
 	
 		#---------------------------------------------------------------------
