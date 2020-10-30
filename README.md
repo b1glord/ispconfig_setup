@@ -630,7 +630,7 @@ cd /tmp; wget -O installer.tgz "https://github.com/b1glord/ispconfig_setup/tarba
 cd /tmp; sudo wget -O installer.tgz "https://github.com/b1glord/ispconfig_setup/tarball/centos8"; tar zxvf installer.tgz; cd *ispconfig*; sudo bash install.sh
 ```
 
-* CentOS 7
+* CentOS 7 Nginx Support Test 
 
 ```shell
 cd /tmp; sudo yum -y install wget unzip net-tools; wget -O installer.tgz "https://github.com/b1glord/ispconfig_setup/tarball/centos8"; tar zxvf installer.tgz; cd *ispconfig*; sudo bash install.sh
