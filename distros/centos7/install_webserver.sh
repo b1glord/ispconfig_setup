@@ -170,7 +170,7 @@ echo 'OPTIONS="-u $FCGI_USER -g $FCGI_GROUP -s $FCGI_SOCKET -S $FCGI_EXTRA_OPTIO
 cp -R /etc/nginx/sites-available/ispconfig.vhost /etc/nginx/sites-available/default
 
   echo "Installing phpMyAdmin... "
-	yum -y install phpmyadmin
+	yum_install phpmyadmin
 	sed -i "s/'cookie'/'http'/" /etc/phpMyAdmin/config.inc.php
 	echo -e "[${green}DONE${NC}]\n"
 
@@ -178,6 +178,6 @@ cp -R /etc/nginx/sites-available/ispconfig.vhost /etc/nginx/sites-available/defa
   echo -e "${green}done! ${NC}\n"
 
   echo -n "Installing Let's Encrypt (Certbot)... "
-	  yum -y install certbot
+	  yum_install certbot
 echo -e "[${green}DONE${NC}]\n"
 }
