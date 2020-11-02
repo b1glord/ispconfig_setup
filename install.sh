@@ -349,6 +349,14 @@ elif [ -f /etc/redhat-release ]; then # /etc/centos-release
 	InstallAntiVirus
 	fi
 	InstallWebServer
+			if [ "$CFG_HHVM" == "yes" ]; then
+			source $APWD/distros/$DISTRO/install_hhvm.sh
+			InstallHHVM
+		fi
+	if [ "$CFG_VARNISH" == "yes" ]; then
+			InstallVARNISH
+			source $APWD/distros/$DISTRO/install_varnish.sh
+		fi
 	InstallFTP 
 	if [ "$CFG_QUOTA" == "yes" ]; then
 		InstallQuota 
@@ -357,12 +365,6 @@ elif [ -f /etc/redhat-release ]; then # /etc/centos-release
 	InstallWebStats 
 	if [ "$CFG_JKIT" == "yes" ]; then
 		InstallJailkit 
-	fi
-	if [ "$CFG_HHVM" == "yes" ]; then
-		InstallHHVM
-	fi
-	if [ "$CFG_VARNISH" == "yes" ]; then
-	InstallVARNISH
 	fi
 	InstallFail2ban 
 	if [ "$CFG_METRONOME" == "yes" ]; then

@@ -48,7 +48,7 @@ AskQuestions() {
 #		CFG_HHVM=$(whiptail --title "Install HHVM" --backtitle "$WT_BACKTITLE" --nocancel --radiolist "Do you want to install HHVM?" 10 50 2 "no" "(default)" ON "yes" "" OFF 3>&1 1>&2 2>&3)
 #	done
 
-	if echo "$ID" | grep -iq 'raspbian'; then
+	if echo "$ID" | grep -iq 'centos'; then
 		CFG_HHVM="no"
 	else
 		while [[ ! "$CFG_HHVM" =~ $RE ]]
