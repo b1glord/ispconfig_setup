@@ -87,11 +87,11 @@ InstallWebmail() {
 	;;
 	"squirrelmail")
 	  echo -n "Installing Webmail client (SquirrelMail)... "
-	  echo "dictionaries-common dictionaries-common/default-wordlist select american (American English)" | debconf-set-selections
-	  yum_install squirrelmail wamerican
-	  ln -s /etc/squirrelmail/apache.conf /etc/apache2/conf.d/squirrelmail
-	   sed -i 1d /etc/squirrelmail/apache.conf
-	   sed -i '1iAlias /webmail /usr/share/squirrelmail' /etc/squirrelmail/apache.conf
+	  #echo "dictionaries-common dictionaries-common/default-wordlist select american (American English)" | debconf-set-selections
+	  yum_install squirrelmail
+	  #ln -s /etc/squirrelmail/apache.conf /etc/apache2/conf.d/squirrelmail
+	   #sed -i 1d /etc/squirrelmail/apache.conf
+	   #sed -i '1iAlias /webmail /usr/share/squirrelmail' /etc/squirrelmail/apache.conf
 
 	   case $CFG_MTA in
 		 "courier")
