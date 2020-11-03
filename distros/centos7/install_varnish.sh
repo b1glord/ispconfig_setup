@@ -1,5 +1,4 @@
 InstallVarnish() {
-
   echo -n "Installing Varnish Cache... "
     yum_install varnish
   
