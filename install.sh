@@ -351,7 +351,7 @@ elif [ -f /etc/redhat-release ]; then # /etc/centos-release
 	fi
 	InstallWebServer
 	if [ "$CFG_VARNISH" == "yes" ]; then
-	install_varnish
+	Install_varnish
 	fi
 	if [ "$CFG_HHVM" == "yes" ]; then
 	InstallHHVM
