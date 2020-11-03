@@ -117,8 +117,8 @@ InstallWebServer() {
 echo -e "[${green}DONE${NC}]\n"
 
 	echo -n "Installing PHP ... "
-	yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-    yum -y install http://rpms.remirepo.net/enterprise/remi-release-7.rpm
+	yum_install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+    yum_install http://rpms.remirepo.net/enterprise/remi-release-7.rpm
 	yum-config-manager --enable remi-php73
 	yum_install php
 	echo -n "Installing PHP modules... "
@@ -161,13 +161,10 @@ echo 'OPTIONS="-u $FCGI_USER -g $FCGI_GROUP -s $FCGI_SOCKET -S $FCGI_EXTRA_OPTIO
 	systemctl start spawn-fcgi
 	systemctl restart nginx.service
 	systemctl restart php-fpm
-	#systemctl restart varnish.service
 	# echo -e "${green}done! ${NC}\n"
 
 # Configure Mailman
-#	cd /usr/lib/mailman/cgi-bin/
-#	ln -s ./ mailman
-cp -R /etc/nginx/sites-available/ispconfig.vhost /etc/nginx/sites-available/default
+#cp -R /etc/nginx/sites-available/apps.vhost /etc/nginx/sites-available/default
 
   echo "Installing phpMyAdmin... "
 	yum_install phpmyadmin
