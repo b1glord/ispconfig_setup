@@ -64,7 +64,7 @@ InstallWebmail() {
 		echo "                   fastcgi_param   REDIRECT_STATUS         200;" >> /etc/nginx/roundcube.conf
 		echo "                   # To access SquirrelMail, the default user (like www-data on Debian/Ubuntu) mu\$" >> /etc/nginx/roundcube.conf
 		echo "                   #fastcgi_pass 127.0.0.1:9000;" >> /etc/nginx/roundcube.conf
-		echo "                   fastcgi_pass unix:/var/run/php5-fpm.sock;" >> /etc/nginx/roundcube.conf
+		echo "                   fastcgi_pass unix:/var/run/php-fpm.sock;" >> /etc/nginx/roundcube.conf
 		echo "                   fastcgi_index index.php;" >> /etc/nginx/roundcube.conf
 		echo "                   fastcgi_param SCRIPT_FILENAME \$document_root\$fastcgi_script_name;" >> /etc/nginx/roundcube.conf
 		echo "                   fastcgi_buffer_size 128k;" >> /etc/nginx/roundcube.conf
