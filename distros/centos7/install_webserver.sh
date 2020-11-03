@@ -163,9 +163,6 @@ echo 'OPTIONS="-u $FCGI_USER -g $FCGI_GROUP -s $FCGI_SOCKET -S $FCGI_EXTRA_OPTIO
 	systemctl restart php-fpm
 	# echo -e "${green}done! ${NC}\n"
 
-# Configure Mailman
-#cp -R /etc/nginx/sites-available/apps.vhost /etc/nginx/sites-available/default
-
   echo "Installing phpMyAdmin... "
 	yum_install phpmyadmin
 	sed -i "s/'cookie'/'http'/" /etc/phpMyAdmin/config.inc.php

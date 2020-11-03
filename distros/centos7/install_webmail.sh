@@ -87,11 +87,19 @@ InstallWebmail() {
 	;;
 	"squirrelmail")
 	  echo -n "Installing Webmail client (SquirrelMail)... "
-	  #echo "dictionaries-common dictionaries-common/default-wordlist select american (American English)" | debconf-set-selections
 	  yum_install squirrelmail
-	  #ln -s /etc/squirrelmail/apache.conf /etc/apache2/conf.d/squirrelmail
-	   #sed -i 1d /etc/squirrelmail/apache.conf
-	   #sed -i '1iAlias /webmail /usr/share/squirrelmail' /etc/squirrelmail/apache.conf
+
+# Configure Mailman
+	echo "server {" >> /etc/nginx/sites-available/000-default.conf
+	echo "listen *:80 default_server;" >> /etc/nginx/sites-available/000-default.conf
+	echo "server_name _;" >> /etc/nginx/sites-available/000-default.conf
+	echo "root /usr/share/nginx/html;" >> /etc/nginx/sites-available/000-default.conf
+	echo "index index.html index.htm;" >> /etc/nginx/sites-available/000-default.conf
+	echo "location / {}" >> /etc/nginx/sites-available/000-default.conf
+	echo "}" >> /etc/nginx/sites-available/000-default.conf
+	
+#cp -R /etc/nginx/sites-available/apps.vhost /etc/nginx/sites-available/default
+cp -R /etc/nginx/sites-available/000-default.conf /etc/nginx/sites-available/default
 
 	   case $CFG_MTA in
 		 "courier")
