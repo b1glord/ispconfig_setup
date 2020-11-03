@@ -97,7 +97,7 @@ InstallWebServer() {
 	echo -e "[${green}DONE${NC}]\n"
 
   echo "Installing phpMyAdmin... "
-	yum -y install phpmyadmin
+	yum_install phpmyadmin
 	echo -e "[${green}DONE${NC}]\n"
     sed -i "s/Require ip 127.0.0.1/#Require ip 127.0.0.1/" /etc/httpd/conf.d/phpMyAdmin.conf
     sed -i '0,/Require ip ::1/ s/Require ip ::1/#Require ip ::1\n       Require all granted/' /etc/httpd/conf.d/phpMyAdmin.conf
@@ -117,8 +117,8 @@ InstallWebServer() {
 echo -e "[${green}DONE${NC}]\n"
 
 	echo -n "Installing PHP ... "
-	yum_install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-    yum_install http://rpms.remirepo.net/enterprise/remi-release-7.rpm
+	yum -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+    yum -y install http://rpms.remirepo.net/enterprise/remi-release-7.rpm
 	yum-config-manager --enable remi-php73
 	yum_install php
 	echo -n "Installing PHP modules... "
