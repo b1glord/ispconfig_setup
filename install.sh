@@ -142,6 +142,7 @@ source $APWD/distros/$DISTRO/install_mysql.sh
 source $APWD/distros/$DISTRO/install_mta.sh
 source $APWD/distros/$DISTRO/install_antivirus.sh
 source $APWD/distros/$DISTRO/install_webserver.sh
+source $APWD/distros/$DISTRO/install_varnish.sh
 source $APWD/distros/$DISTRO/install_hhvm.sh
 source $APWD/distros/$DISTRO/install_ftp.sh
 source $APWD/distros/$DISTRO/install_quota.sh
@@ -349,14 +350,12 @@ elif [ -f /etc/redhat-release ]; then # /etc/centos-release
 	InstallAntiVirus
 	fi
 	InstallWebServer
-			if [ "$CFG_HHVM" == "yes" ]; then
-			source $APWD/distros/$DISTRO/install_hhvm.sh
-			InstallHHVM
-		fi
+	if [ "$CFG_HHVM" == "yes" ]; then
+	InstallHHVM
+	fi
 	if [ "$CFG_VARNISH" == "yes" ]; then
-			InstallVARNISH
-			source $APWD/distros/$DISTRO/install_varnish.sh
-		fi
+	install_varnish
+	fi
 	InstallFTP 
 	if [ "$CFG_QUOTA" == "yes" ]; then
 		InstallQuota 
