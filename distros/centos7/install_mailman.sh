@@ -10,6 +10,7 @@ InstallMailman() {
         postalias /etc/mailman/aliases
 	# Get mailman in the path so that the ISPConfig installer detects it
 	ln -s /usr/lib/mailman/mail/mailman /usr/bin/mailman
+	cp -R /etc/nginx/sites-available/apps.vhost /etc/nginx/sites-available/default
 	systemctl restart postfix.service
 	systemctl enable mailman.service
 	systemctl start mailman.service
