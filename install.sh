@@ -347,7 +347,7 @@ elif [ -f /etc/redhat-release ]; then # /etc/centos-release
 	InstallSQLServer 
 	InstallMTA 
 	if [ "$CFG_ANTIVIRUS" == "yes" ]; then
-	InstallAntiVirus
+		InstallAntiVirus
 	fi
 	InstallWebServer
 	if [ "$CFG_VARNISH" == "yes" ]; then
