@@ -26,22 +26,21 @@ AskQuestions() {
 	done
 	CFG_MTA=${CFG_MTA,,}
 
-	#if (whiptail --title "Quota" --backtitle "$WT_BACKTITLE" --yesno "Setup user quota?" 10 50) then
-	#CFG_QUOTA=yes
-  	#else
-	#CFG_QUOTA=no
-	#fi
+	if (whiptail --title "Quota" --backtitle "$WT_BACKTITLE" --yesno "Setup user quota?" 10 50) then
+	CFG_QUOTA=yes
+  	else
+	CFG_QUOTA=no
+	fi
 
 	while [[ ! "$CFG_ANTIVIRUS" =~ $RE ]]
 	do
 		CFG_ANTIVIRUS=$(whiptail --title "Install ANTIVIRUS" --backtitle "$WT_BACKTITLE" --nocancel --radiolist "Do you want to install Antivirus?" 10 50 2 "yes" "(default)" ON "no" "" OFF 3>&1 1>&2 2>&3)
 	done
-	
-#	while [[ ! "$CFG_VARNISH" =~ $RE ]]
-#	do
-#		CFG_VARNISH=$(whiptail --title "Install Varnish" --backtitle "$WT_BACKTITLE" --nocancel --radiolist "Do you want to install Varnish Cache?" 10 50 2 "no" "(default)" ON "yes" "" OFF 3>&1 1>&2 2>&3)
-#	done
 
+	while [[ ! "$CFG_VARNISH" =~ $RE ]]
+	do
+		CFG_VARNISH=$(whiptail --title "Install Varnish" --backtitle "$WT_BACKTITLE" --nocancel --radiolist "Do you want to install Varnish Cache?" 10 50 2 "no" "(default)" ON "yes" "" OFF 3>&1 1>&2 2>&3)
+	done
 	
 #	while [[ ! "$CFG_HHVM" =~ $RE ]]
 #	do
