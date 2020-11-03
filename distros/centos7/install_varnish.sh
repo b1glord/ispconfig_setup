@@ -1,4 +1,5 @@
 InstallVarnish() {
+if [ $CFG_HHVM = "yes" ]; then
   echo -n "Installing Varnish Cache... "
     yum_install varnish
   

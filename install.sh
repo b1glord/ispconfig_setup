@@ -351,10 +351,10 @@ elif [ -f /etc/redhat-release ]; then # /etc/centos-release
 	fi
 	InstallWebServer
 	if [ "$CFG_VARNISH" == "yes" ]; then
-	Install_varnish
+		Install_Varnish
 	fi
 	if [ "$CFG_HHVM" == "yes" ]; then
-	InstallHHVM
+		InstallHHVM
 	fi
 	InstallFTP 
 	if [ "$CFG_QUOTA" == "yes" ]; then
