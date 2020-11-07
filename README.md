@@ -1,4 +1,4 @@
-[![Build Status](https://github.com/b1glord/ispconfig_setup.svg?branch=centos8)](https://travis-ci.org/b1glord/ispconfig_setup)
+[![Build Status](https://github.com/b1glord/ispconfig_setup.svg?branch=centos8)](https://travis-ci.org/b1glord/ispconfig_setup.svg?branch=centos8)
 
 # README #
 
