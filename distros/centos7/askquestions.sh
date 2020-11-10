@@ -39,23 +39,14 @@ AskQuestions() {
 
 	while [[ ! "$CFG_VARNISH" =~ $RE ]]
 	do
-		CFG_VARNISH=$(whiptail --title "Install Varnish" --backtitle "$WT_BACKTITLE" --nocancel --radiolist "Do you want to install Varnish Cache?" 10 50 2 "no" "(default)" ON "yes" "" OFF 3>&1 1>&2 2>&3)
+		CFG_VARNISH=$(whiptail --title "Install Varnish" --backtitle "$WT_BACKTITLE" --nocancel --radiolist "Do you want to install Varnish Cache?" 10 50 2 "yes" "" OFF "no""(default)" ON 3>&1 1>&2 2>&3)
 	done
 	CFG_WEBSERVER=${CFG_VARNISH,,}
 	
-#	while [[ ! "$CFG_HHVM" =~ $RE ]]
-#	do
-#		CFG_HHVM=$(whiptail --title "Install HHVM" --backtitle "$WT_BACKTITLE" --nocancel --radiolist "Do you want to install HHVM?" 10 50 2 "no" "(default)" ON "yes" "" OFF 3>&1 1>&2 2>&3)
-#	done
-
-	if echo "$ID" | grep -iq 'centos'; then
-		CFG_HHVM="no"
-	else
-		while [[ ! "$CFG_HHVM" =~ $RE ]]
-		do
-			CFG_HHVM=$(whiptail --title "HHVM" --backtitle "$WT_BACKTITLE" --nocancel --radiolist "Do you want to install HHVM (Hip Hop Virtual Machine) as PHP engine?" 10 50 2 "no" "(default)" ON "yes" "" OFF 3>&1 1>&2 2>&3)
-		done
-	fi
+	while [[ ! "$CFG_HHVMINSTALL" =~ $RE ]]
+	do
+		CFG_HHVMINSTALL=$(whiptail --title "Install HHVM" --backtitle "$WT_BACKTITLE" --nocancel --radiolist "Do you want to install HHVM (Hip Hop Virtual Machine) as PHP engine?" 10 50 2 "yes" "" OFF "no""(default)" ON 3>&1 1>&2 2>&3)
+	done
 
 	if [[ ! "$CFG_JKIT" =~ $RE ]]; then
 		if (whiptail --title "Jailkit" --backtitle "$WT_BACKTITLE" --yesno "Would you like to install Jailkit (it must be installed before ISPConfig)?" 10 50) then
