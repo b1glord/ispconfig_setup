@@ -5,7 +5,7 @@
 AskQuestions() {
 	if ! command -v whiptail >/dev/null; then
 		echo -n "Installing whiptail... "
-		yum_install newt
+		dnf_install newt
 		echo -e "[${green}DONE${NC}]\n"
 	fi
 
