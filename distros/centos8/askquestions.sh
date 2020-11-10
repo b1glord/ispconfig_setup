@@ -32,14 +32,6 @@ AskQuestions() {
 	#CFG_QUOTA=no
 	#fi
 
-	if [[ ! "$CFG_HHVM" =~ $RE ]]; then
-	if (whiptail --title "HHVM" --backtitle "$WT_BACKTITLE" --nocancel --radiolist "Do you want to install HHVM (Hip Hop Virtual Machine) as PHP engine?" 10 50 2 "no" "(default)" ON "yes" "" OFF 3>&1 1>&2 2>&3) then
-			CFG_HHVM=no
-		else
-			CFG_HHVM=yes
-		fi
-	fi
-
 	if [[ ! "$CFG_JKIT" =~ $RE ]]; then
 		if (whiptail --title "Jailkit" --backtitle "$WT_BACKTITLE" --yesno "Would you like to install Jailkit (it must be installed before ISPConfig)?" 10 50) then
 			CFG_JKIT=yes
