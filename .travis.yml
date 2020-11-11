@@ -40,9 +40,7 @@ matrix:
 before_script:
     - sudo sed -i "s/^127.0.1.1.*/127.0.1.1\t$HOSTNAME.example.com\t$HOSTNAME/" /etc/hosts
     - cat /etc/fstab
-    - sudo apt-get -yqq update
-    - sudo apt-get -yqq dist-upgrade
-    - sudo apt-get -yqq install systemd
+    - sudo yum -y update
 
 script:
     - echo "y" | sudo bash install.sh
