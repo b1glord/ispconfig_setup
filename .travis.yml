@@ -1,12 +1,16 @@
 {
-  "language": "shell",
-  "os": [
-    "linux"
-  ],
-  "dist": "centos",
-  "version": "7",
-  "sudo": true,
+sudo: required
+
+services:
+  - docker
+
+  env:
+  - distribution: centos
+    version: 7
+    
   "before_script": [
+   - 'sudo docker pull ${distribution}:${version}'
+   - 'sudo docker build --no-cache --rm --file=travis/Dockerfile.${distribution}-${version} --tag=${distribution}-${version}:ansible travis'
     "sudo sed -i \"s/^127.0.1.1.*/127.0.1.1\\t$HOSTNAME.example.com\\t$HOSTNAME/\" /etc/hosts",
     "cat /etc/fstab",
     "sudo apt-get -yqq update",
@@ -14,6 +18,8 @@
     "sudo apt-get -yqq install systemd"
   ],
   "script": [
+  - container_id=$(mktemp)
+  - 'sudo docker run --detach --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --volume="${PWD}":/etc/ansible/roles/nginx_role:ro ${distribution}-${version}:ansible > "${container_id}"'
     "echo \"y\" | sudo bash install.sh",
     "curl -IkL \"https://$HOSTNAME:8080\""
   ],
