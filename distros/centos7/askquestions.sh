@@ -26,10 +26,10 @@ AskQuestions() {
 	done
 	CFG_MTA=${CFG_MTA,,}
 
-	if (whiptail --title "Quota" --backtitle "$WT_BACKTITLE" --noyes "Setup user quota?" 10 50) then
-	CFG_QUOTA=no
-  	else
+	if (whiptail --title "Quota" --backtitle "$WT_BACKTITLE" --yesno "Setup user quota?" 10 50) then
 	CFG_QUOTA=yes
+  	else
+	CFG_QUOTA=no
 	fi
 
 	while [[ ! "$CFG_ANTIVIRUS" =~ $RE ]]
@@ -37,15 +37,24 @@ AskQuestions() {
 		CFG_ANTIVIRUS=$(whiptail --title "Install ANTIVIRUS" --backtitle "$WT_BACKTITLE" --nocancel --radiolist "Do you want to install Antivirus?" 10 50 2 "yes" "(default)" ON "no" "" OFF 3>&1 1>&2 2>&3)
 	done
 
-	while [[ ! "$CFG_VARNISH" =~ $RE ]]
-	do
-		CFG_VARNISH=$(whiptail --title "Install Varnish" --backtitle "$WT_BACKTITLE" --nocancel --radiolist "Do you want to install Varnish Cache?" 10 50 2 "yes" "" OFF "no""(default)" ON 3>&1 1>&2 2>&3)
-	done
-	
-	while [[ ! "$CFG_HHVMINSTALL" =~ $RE ]]
-	do
-		CFG_HHVMINSTALL=$(whiptail --title "Install HHVM" --backtitle "$WT_BACKTITLE" --nocancel --radiolist "Do you want to install HHVM (Hip Hop Virtual Machine) as PHP engine?" 10 50 2 "yes" "" OFF "no""(default)" ON 3>&1 1>&2 2>&3)
-	done
+	if (whiptail --title "Varnish Cache" --backtitle "$WT_BACKTITLE" --yesno "Do you want to install Varnish Cache?" 10 50) then
+	CFG_VARNISH=yes
+  	else
+	CFG_VARNISH=no
+	fi
+
+	if [[ ! "$CFG_HHVM" =~ $RE ]]; then
+		if (whiptail --title "Install HHVM" --backtitle "$WT_BACKTITLE" --nocancel --radiolist "Do you want to install HHVM (Hip Hop Virtual Machine) as PHP engine?" 10 50 2 "yes" "" OFF "no""(default)" ON 3>&1 1>&2 2>&3) then
+			CFG_HHVM=yes
+		else
+			CFG_HHVM=no
+		fi
+	fi
+
+	#while [[ ! "$CFG_HHVM" =~ $RE ]]
+	#do
+	#	CFG_HHVM=$(whiptail --title "Install ANTIVIRUS" --backtitle "$WT_BACKTITLE" --nocancel --radiolist "Do you want to install HHVM (Hip Hop Virtual Machine) as PHP engine?" 10 50 2 "yes" "" OFF "no""(default)" ON 3>&1 1>&2 2>&3)
+	#done
 
 	if [[ ! "$CFG_JKIT" =~ $RE ]]; then
 		if (whiptail --title "Jailkit" --backtitle "$WT_BACKTITLE" --yesno "Would you like to install Jailkit (it must be installed before ISPConfig)?" 10 50) then
