@@ -26,11 +26,11 @@ AskQuestions() {
 	done
 	CFG_MTA=${CFG_MTA,,}
 
-	if (whiptail --title "Quota" --backtitle "$WT_BACKTITLE" --yesno "Setup user quota?" 10 50) then
-	CFG_QUOTA=yes
-  	else
-	CFG_QUOTA=no
-	fi
+	#if (whiptail --title "Quota" --backtitle "$WT_BACKTITLE" --yesno "Setup user quota?" 10 50) then
+	#CFG_QUOTA=yes
+  	#else
+	#CFG_QUOTA=no
+	#fi
 
 	while [[ ! "$CFG_ANTIVIRUS" =~ $RE ]]
 	do
@@ -45,7 +45,7 @@ AskQuestions() {
 
 	while [[ ! "$CFG_HHVM" =~ $RE ]]
 	do
-		CFG_HHVM=$(whiptail --title "Install ANTIVIRUS" --backtitle "$WT_BACKTITLE" --defaultno --nocancel --radiolist "Do you want to install HHVM (Hip Hop Virtual Machine) as PHP engine?" 10 50 2 "yes" "" ON "no""(default)" OFF 3>&1 1>&2 2>&3)
+		CFG_HHVM=$(whiptail --title "Install HHVM" --backtitle "$WT_BACKTITLE" --nocancel --radiolist "Do you want to install HHVM (Hip Hop Virtual Machine) as PHP engine?" 10 50 2 "yes" "" ON "no""(default)" OFF 3>&1 1>&2 2>&3)
 	done
 
 	if [[ ! "$CFG_JKIT" =~ $RE ]]; then
