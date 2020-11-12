@@ -349,9 +349,10 @@ elif [ -f /etc/redhat-release ]; then # /etc/centos-release
 		InstallAntiVirus
 	fi
 	InstallWebServer
-	InstallVarnish
-	InstallHHVM
+	if [ "$CFG_VARNISH" == "yes" ]; then
+		InstallVarnish
 	fi
+	InstallHHVM
 	InstallFTP 
 	if [ "$CFG_QUOTA" == "yes" ]; then
 		InstallQuota 
