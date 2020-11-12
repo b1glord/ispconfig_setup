@@ -43,18 +43,10 @@ AskQuestions() {
 	CFG_VARNISH=no
 	fi
 
-	if [[ ! "$CFG_HHVM" =~ $RE ]]; then
-		if (whiptail --title "Install HHVM" --backtitle "$WT_BACKTITLE" --nocancel --radiolist "Do you want to install HHVM (Hip Hop Virtual Machine) as PHP engine?" 10 50 2 "yes" "" OFF "no""(default)" ON 3>&1 1>&2 2>&3) then
-			CFG_HHVM=yes
-		else
-			CFG_HHVM=no
-		fi
-	fi
-
-	#while [[ ! "$CFG_HHVM" =~ $RE ]]
-	#do
-	#	CFG_HHVM=$(whiptail --title "Install ANTIVIRUS" --backtitle "$WT_BACKTITLE" --nocancel --radiolist "Do you want to install HHVM (Hip Hop Virtual Machine) as PHP engine?" 10 50 2 "yes" "" OFF "no""(default)" ON 3>&1 1>&2 2>&3)
-	#done
+	while [[ ! "$CFG_HHVM" =~ $RE ]]
+	do
+		CFG_HHVM=$(whiptail --title "Install ANTIVIRUS" --backtitle "$WT_BACKTITLE" --defaultno --nocancel --radiolist "Do you want to install HHVM (Hip Hop Virtual Machine) as PHP engine?" 10 50 2 "yes" "" ON "no""(default)" OFF 3>&1 1>&2 2>&3)
+	done
 
 	if [[ ! "$CFG_JKIT" =~ $RE ]]; then
 		if (whiptail --title "Jailkit" --backtitle "$WT_BACKTITLE" --yesno "Would you like to install Jailkit (it must be installed before ISPConfig)?" 10 50) then
