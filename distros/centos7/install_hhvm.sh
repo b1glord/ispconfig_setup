@@ -1,5 +1,4 @@
-InstallHHVM() {
-if [ $CFG_HHVM = "yes" ]; then
+InstallHhvm() {
     echo -n "Installing HHVM (Hip Hop Virtual Machine)... "
 yum_install cpp gcc-c++ cmake git psmisc {binutils,boost,jemalloc,numactl}-devel \
 {ImageMagick,sqlite,tbb,bzip2,openldap,readline,elfutils-libelf,gmp,lz4,pcre}-devel \
@@ -18,7 +17,7 @@ gpgcheck=0
 EOF
 
   echo -n "Installing HHVM HipHop Virtual Machine (FCGI)... "
-  yum -y install hhvm
+  yum_install hhvm
 
   cat > /etc/systemd/system/hhvm.service << EOF
 [Unit]

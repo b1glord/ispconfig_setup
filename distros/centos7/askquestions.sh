@@ -45,7 +45,7 @@ AskQuestions() {
 
 	while [[ ! "$CFG_HHVM" =~ $RE ]]
 	do
-		CFG_HHVM=$(whiptail --title "Install HHVM" --backtitle "$WT_BACKTITLE" --nocancel --radiolist "Do you want to install HHVM (Hip Hop Virtual Machine) as PHP engine?" 10 50 2 "yes" "" ON "no""(default)" OFF 3>&1 1>&2 2>&3)
+		CFG_HHVM=$(whiptail --title "Install HHVM" --backtitle "$WT_BACKTITLE" --nocancel --radiolist "Do you want to install HHVM?" 10 50 2 "no" "(default)" ON "yes" "" OFF 3>&1 1>&2 2>&3)
 	done
 
 	if [[ ! "$CFG_JKIT" =~ $RE ]]; then
