@@ -41,11 +41,10 @@ AskQuestions() {
 	do
 		CFG_VARNISH=$(whiptail --title "Install Varnish" --backtitle "$WT_BACKTITLE" --nocancel --radiolist "Do you want to install Varnish Cache?" 10 50 2 "yes" "" OFF "no""(default)" ON 3>&1 1>&2 2>&3)
 	done
-	CFG_WEBSERVER=${CFG_VARNISH,,}
 	
-	while [[ ! "$CFG_HHVMINSTALL" =~ $RE ]]
+	while [[ ! "$CFG_HHVM" =~ $RE ]]
 	do
-		CFG_HHVMINSTALL=$(whiptail --title "Install HHVM" --backtitle "$WT_BACKTITLE" --nocancel --radiolist "Do you want to install HHVM (Hip Hop Virtual Machine) as PHP engine?" 10 50 2 "yes" "" OFF "no""(default)" ON 3>&1 1>&2 2>&3)
+		CFG_HHVM=$(whiptail --title "Install HHVM" --backtitle "$WT_BACKTITLE" --nocancel --radiolist "Do you want to install HHVM (Hip Hop Virtual Machine) as PHP engine?" 10 50 2 "yes" "" OFF "no""(default)" ON 3>&1 1>&2 2>&3)
 	done
 
 	if [[ ! "$CFG_JKIT" =~ $RE ]]; then
