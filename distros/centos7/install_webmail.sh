@@ -327,8 +327,6 @@ server {
         # }
 }
 EOF	
-#cp -R /etc/nginx/sites-available/apps.vhost /etc/nginx/sites-available/default
-cp -R /etc/nginx/sites-available/000-default.conf /etc/nginx/sites-available/default
 
 	   case $CFG_MTA in
 		 "courier")
