@@ -349,7 +349,7 @@ elif [ -f /etc/redhat-release ]; then # /etc/centos-release
 		InstallAntiVirus
 	fi
 	InstallWebServer
-	if [ "$CFG_VARNISH" == "yes" ]; then
+	if [ "$CFG_VCACHE" == "yes" ]; then
 	InstallVarnish
 	fi
 	if [ "$CFG_HHVM" == "yes" ]; then
