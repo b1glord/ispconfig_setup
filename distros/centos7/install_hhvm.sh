@@ -1,4 +1,5 @@
 InstallHHVM() {
+if [ $CFG_VARNISH = "yes" ]; then
     echo -n "Installing HHVM (Hip Hop Virtual Machine)... "
 yum_install cpp gcc-c++ cmake git psmisc {binutils,boost,jemalloc,numactl}-devel \
 {ImageMagick,sqlite,tbb,bzip2,openldap,readline,elfutils-libelf,gmp,lz4,pcre}-devel \
