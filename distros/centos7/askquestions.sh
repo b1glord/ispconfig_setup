@@ -45,10 +45,12 @@ AskQuestions() {
 		CFG_ANTIVIRUS=$(whiptail --title "Install ANTIVIRUS" --backtitle "$WT_BACKTITLE" --nocancel --radiolist "Do you want to install Antivirus?" 10 50 2 "yes" "(default)" ON "no" "" OFF 3>&1 1>&2 2>&3)
 	done
 
-	if (whiptail --title "Varnish Cache" --backtitle "$WT_BACKTITLE" --yesno "Do you want to install Varnish Cache?" 10 50) then
-	CFG_VARNISH=yes
-  	else
-	CFG_VARNISH=no
+	if [[ ! "$CFG_VARNISH" =~ $RE ]]; then
+	if (whiptail --title "Varnish Cache" --backtitle "$WT_BACKTITLE" --nocancel --radiolist "Do you want to install Varnish Cache?" 10 50 2 "no" "(default)" ON "yes" "" OFF 3>&1 1>&2 2>&3) then
+			CFG_VARNISH=yes
+		else
+			CFG_VARNISH=no
+		fi
 	fi
 
 	if [[ ! "$CFG_JKIT" =~ $RE ]]; then
