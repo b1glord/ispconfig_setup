@@ -118,7 +118,7 @@ InstallWebmail() {
   elif [ "$CFG_WEBSERVER" == "nginx" ]; then
 
 # Configure Mailman
-  cat > /etc/nginx/sites-enabled/default << EOF
+  cat > /etc/nginx/sites-enabled/default. << EOF
 server {
         listen 8081 ;
         listen [::]:8081  ipv6only=on;
