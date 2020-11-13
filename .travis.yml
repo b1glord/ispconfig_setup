@@ -1,3 +1,16 @@
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  # Fetch base image
+  - sudo docker pull jmeth/travis-centos
+
+script:
+  # Run container in detached state
+  - sudo docker run --detach --privileged --volume="${PWD}":/etc/ansible/roles/role_under_test:ro --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro travispoc /usr/lib/systemd/systemd > /tmp/container_id
+
 language: bash
 sudo: enabled
 
