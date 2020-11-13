@@ -1,8 +1,6 @@
 InstallHHVM() {
 if [ $CFG_HHVM = "yes" ]; then
     echo -n "Installing HHVM (Hip Hop Virtual Machine)... "
-#yum_install cpp gcc-c++ cmake git psmisc {binutils,boost,jemalloc,numactl}-devel \ {ImageMagick,sqlite,tbb,bzip2,openldap,readline,elfutils-libelf,gmp,lz4,pcre}-devel \ lib{xslt,event,yaml,vpx,png,zip,icu,mcrypt,memcached,cap,dwarf}-devel \ {unixODBC,expat,mariadb}-devel lib{edit,curl,xml2,xslt}-devel \ glog-devel oniguruma-devel ocaml gperf enca libjpeg-turbo-devel openssl-devel \ mariadb mariadb-server libc-client make
-
 #Add Repository Hvvm PreBuild Installation
   cat > /etc/yum.repos.d/hhvm.repo << EOF
 [hhvm]
