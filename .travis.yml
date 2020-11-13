@@ -1,15 +1,31 @@
+language: python
+python: '2.7'
 sudo: required
+env:
+  #matrix:
+  - OS_TYPE=centos OS_VERSION=7 ANSIBLE_VERSION=1.9.2
+  - OS_TYPE=centos OS_VERSION=8 ANSIBLE_VERSION=1.9.2
+#  - OS_TYPE=fedora OS_VERSION=22
+
+branches:
+  only:
+  - master
+#  - stable
 
 services:
   - docker
 
 before_install:
-  # Fetch base image
-  - sudo docker pull jmeth/travis-centos
+  - docker pull weldpua2008/docker-ansible:${OS_TYPE}${OS_VERSION}_v${ANSIBLE_VERSION}
 
 script:
-  # Run container in detached state
-  - sudo docker run --detach --privileged --volume="${PWD}":/etc/ansible/roles/role_under_test:ro --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro travispoc /usr/lib/systemd/systemd > /tmp/container_id
+ # Run tests in Container
+ - docker run --rm=true -v `pwd`:/ansible-apache:rw weldpua2008/docker-ansible:${OS_TYPE}${OS_VERSION}_v${ANSIBLE_VERSION} /bin/bash -c "/ansible-apache/tests/test-in-docker-image.sh ${OS_TYPE} ${OS_VERSION} ${ANSIBLE_VERSION}"
+
+notifications:
+  email: false
+#  hipchat:
+#    rooms:
 
 language: bash
 sudo: enabled
