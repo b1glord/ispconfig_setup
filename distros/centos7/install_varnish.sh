@@ -28,6 +28,7 @@ if [ $CFG_VCACHE = "yes" ]; then
   systemctl start nginx.service
   systemctl start varnish.service
 
- echo -e "${green}done! ${NC}\n"
- fi
+  echo -e "${green}done! ${NC}\n"
+  fi
+fi
 }
