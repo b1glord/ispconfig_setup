@@ -1,5 +1,5 @@
 InstallVarnish() {
-if [ $CFG_VARNISH = "yes" ]; then
+if [ $CFG_VCACHE = "yes" ]; then
   echo -n "Installing Varnish Cache... "
     yum_install varnish
   
