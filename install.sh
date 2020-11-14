@@ -350,6 +350,7 @@ elif [ -f /etc/redhat-release ]; then # /etc/centos-release
 	fi
 	InstallWebServer
 	if [ "$CFG_VCACHE" == "yes" ]; then
+	source $APWD/distros/$DISTRO/install_varnish.sh
 	InstallVarnish
 	fi
 	if [ "$CFG_HHVM" == "yes" ]; then
