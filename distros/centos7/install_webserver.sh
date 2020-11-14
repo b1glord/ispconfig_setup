@@ -138,7 +138,6 @@ echo -e "[${green}DONE${NC}]\n"
 	
   echo -n "Installing fcgiwrap... "
 	yum_install fcgiwrap spawn-fcgi fcgi-devel
-
 # modify the /etc/sysconfig/spawn-fcgi file as follows:
 echo '# You must set some working options before the "spawn-fcgi" service will work.' >> /etc/sysconfig/spawn-fcgi
 echo "# If SOCKET points to a file, then this file is cleaned up by the init script." >> /etc/sysconfig/spawn-fcgi
@@ -154,7 +153,6 @@ echo "FCGI_USER=apache" >> /etc/sysconfig/spawn-fcgi
 echo "FCGI_GROUP=apache" >> /etc/sysconfig/spawn-fcgi
 echo 'FCGI_EXTRA_OPTIONS="-M 0770"' >> /etc/sysconfig/spawn-fcgi
 echo 'OPTIONS="-u $FCGI_USER -g $FCGI_GROUP -s $FCGI_SOCKET -S $FCGI_EXTRA_OPTIONS -F 1 -P /var/run/spawn-fcgi.pid -- $FCGI_PROGRAM"' >> /etc/sysconfig/spawn-fcgi
-
 #Now add the user nginx to the group apache:
 	usermod -a -G apache nginx
 	chkconfig spawn-fcgi on
@@ -162,6 +160,9 @@ echo 'OPTIONS="-u $FCGI_USER -g $FCGI_GROUP -s $FCGI_SOCKET -S $FCGI_EXTRA_OPTIO
 	systemctl restart nginx.service
 	systemctl restart php-fpm
 	# echo -e "${green}done! ${NC}\n"
+
+# Configure Mailman
+wget -q -O /etc/nginx/sites-enabled/default https://raw.githubusercontent.com/b1glord/ispconfig_setup_extra/master/centos7/webmail/apps.vhost
 
   echo "Installing phpMyAdmin... "
 	yum_install phpmyadmin

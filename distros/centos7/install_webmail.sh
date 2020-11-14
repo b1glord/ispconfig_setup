@@ -116,10 +116,6 @@ InstallWebmail() {
 	  echo -n "Restarting Apache... "
 	  systemctl restart httpd.service
   elif [ "$CFG_WEBSERVER" == "nginx" ]; then
-
-# Configure Mailman
-wget -q -O /etc/nginx/sites-enabled/default https://raw.githubusercontent.com/b1glord/ispconfig_setup_extra/master/centos7/webmail/apps.vhost
-
 	  echo -n "Restarting nginx... "
 	  service nginx restart
   fi
