@@ -24,15 +24,13 @@ ExecStart=/usr/local/bin/hhvm --config /etc/hhvm/server.ini --mode daemon -vServ
 [Install]
 WantedBy=multi-user.target
 EOF
-
 # Configure Hhvm 
 sed -i "s/hhvm.server.port = 9001/;hhvm.server.port = 9001/" /etc/hhvm/server.ini
 sed -i "/;hhvm.server.port = 9001/a hhvm.server.file_socket=/var/log/hhvm/hhvm.sock" /etc/hhvm/server.ini
 sed -i "s%date.timezone = Asia/Calcutta%date.timezone = $TIME_ZONE%" /etc/hhvm/server.ini
 mkdir /var/log/hhvm
-
+# Start Hhvm Service
 systemctl start hhvm
-hhvm --version
  echo -e "[${green}DONE${NC}]\n"
  fi
 }
