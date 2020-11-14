@@ -19,7 +19,7 @@ Description=HHVM HipHop Virtual Machine (FCGI)
 After=network.target nginx.service mariadb.service
  
 [Service]
-ExecStart=/usr/local/bin/hhvm --config /etc/hhvm/server.ini --user nginx --mode daemon -vServer.Type=fastcgi -vServer.FileSocket=/var/log/hhvm/hhvm.sock
+ExecStart=/usr/local/bin/hhvm --config /etc/hhvm/server.ini --mode daemon -vServer.Type=fastcgi -vServer.FileSocket=/var/log/hhvm/hhvm.sock
  
 [Install]
 WantedBy=multi-user.target
