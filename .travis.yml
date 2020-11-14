@@ -1,4 +1,4 @@
-sudo: required
+sudo: false
 env:
   matrix:
   - OS_TYPE=centos OS_VERSION=7
