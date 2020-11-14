@@ -1,34 +1,33 @@
-language: python
-python: '2.7'
 sudo: required
-env:
-  #matrix:
-  - OS_TYPE=centos OS_VERSION=7 ANSIBLE_VERSION=1.9.2
-  - OS_TYPE=centos OS_VERSION=8 ANSIBLE_VERSION=1.9.2
-#  - OS_TYPE=fedora OS_VERSION=22
-
-branches:
-  only:
-  - master
-#  - stable
-
 services:
-  - docker
+    - docker
 
-before_install:
-  - docker pull weldpua2008/docker-ansible:${OS_TYPE}${OS_VERSION}_v${ANSIBLE_VERSION}
+env:
+    global:
+        - CI_ROOT="$TRAVIS_BUILD_DIR/ci/"
 
-script:
- # Run tests in Container
- - docker run --rm=true -v `pwd`:/ansible-apache:rw weldpua2008/docker-ansible:${OS_TYPE}${OS_VERSION}_v${ANSIBLE_VERSION} /bin/bash -c "/ansible-apache/tests/test-in-docker-image.sh ${OS_TYPE} ${OS_VERSION} ${ANSIBLE_VERSION}"
-
-notifications:
-  email: false
-#  hipchat:
-#    rooms:
-
-language: bash
-sudo: enabled
+jobs:
+    include:
+        - stage: Build & test
+          name: CentOS 7
+          language: bash
+          env:
+              - CENTOS_RELEASE="centos7"
+              - CONT_NAME="systemd-centos-$CENTOS_RELEASE"
+              - DOCKER_EXEC="docker exec -ti $CONT_NAME"
+          before_install:
+              - sudo apt-get -y -o Dpkg::Options::="--force-confnew" install docker-ce
+              - docker --version
+          install:
+              - if [ -f meson.build ]; then RHEL_VERSION=rhel8; else RHEL_VERSION=rhel7; fi
+              - $CI_ROOT/travis-centos-${RHEL_VERSION}.sh SETUP
+          script:
+              - set -e
+              # Build systemd
+              - $CI_ROOT/travis-centos-${RHEL_VERSION}.sh RUN
+              - set +e
+          after_script:
+              - $CI_ROOT/travis-centos-${RHEL_VERSION}.sh CLEANUP
 
 matrix:
   include:
@@ -52,9 +51,9 @@ matrix:
 before_script:
     - sudo sed -i "s/^127.0.1.1.*/127.0.1.1\t$HOSTNAME.example.com\t$HOSTNAME/" /etc/hosts
     - cat /etc/fstab
-    - sudo apt-get -yqq update
-    - sudo apt-get -yqq dist-upgrade
-    - sudo apt-get -yqq install systemd
+    #- sudo apt-get -yqq update
+    #- sudo apt-get -yqq dist-upgrade
+    #- sudo apt-get -yqq install systemd
 
 script:
     - echo "y" | sudo bash install.sh
