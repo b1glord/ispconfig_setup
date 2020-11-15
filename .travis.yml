@@ -1,4 +1,4 @@
-sudo: false
+sudo: required
 env:
   matrix:
   - OS_TYPE=centos OS_VERSION=7
@@ -14,7 +14,7 @@ before_install:
   - sleep 5
   - sudo docker pull centos:centos${OS_VERSION}
 
-language: generic
+language: bash
 deploy:
   provider: s3
   access_key_id: "$AWS_ACCESS_KEY"
