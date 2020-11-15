@@ -1,7 +1,7 @@
 InstallVarnish() {
 if [ $CFG_VCACHE = "yes" ]; then
   echo -n "Installing Varnish Cache... "
-    yum_install varnish
+    dnf_install varnish
   
   echo -n "Configure Varnish Cache... "
 	  sed -i "s/VARNISH_LISTEN_PORT=6081/VARNISH_LISTEN_PORT=80/" /etc/varnish/varnish.params
