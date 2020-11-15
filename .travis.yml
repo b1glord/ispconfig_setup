@@ -2,6 +2,7 @@ sudo: required
 env:
   matrix:
   - OS_TYPE=centos OS_VERSION=7
+  - OS_TYPE=centos OS_VERSION=8
   
 services:
   - docker
@@ -12,6 +13,11 @@ before_install:
   - sudo service docker restart
   - sleep 5
   - sudo docker pull centos:centos${OS_VERSION}
+
+  
+script:
+ # Run tests in Container
+- tests/setup_tests.sh ${OS_VERSION}
 
 matrix:
   include:
@@ -38,10 +44,6 @@ before_script:
     #- sudo apt-get -yqq update
     #- sudo apt-get -yqq dist-upgrade
     #- sudo apt-get -yqq install systemd
-
-script:
-# Run tests in Container
-- tests/setup_tests.sh ${OS_VERSION}
     - echo "y" | sudo bash install.sh
     - curl -IkL "https://$HOSTNAME:8080"
     - bash -c 'shopt -s globstar; shellcheck -s bash **/*.sh'
