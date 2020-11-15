@@ -1,4 +1,3 @@
-language: Ruby
 sudo: required
 env:
   matrix:
