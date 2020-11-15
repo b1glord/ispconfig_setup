@@ -1,8 +1,6 @@
 sudo: required
 env:
-  matrix:
   - OS_TYPE=centos OS_VERSION=7
-  - OS_TYPE=centos OS_VERSION=8
   
 services:
   - docker
@@ -13,20 +11,6 @@ before_install:
   - sudo service docker restart
   - sleep 5
   - sudo docker pull centos:centos${OS_VERSION}
-
-language: bash
-deploy:
-  provider: s3
-  access_key_id: "$AWS_ACCESS_KEY"
-  secret_access_key: "$AWS_SECRET_KEY"
-  bucket: "$BUCKET"
-  region: "$REGION"
-  acl: public_read
-  skip_cleanup: true
-    
-#script:
-# # Run tests in Container
-#- tests/setup_tests.sh ${OS_VERSION}
 
 matrix:
   include:
@@ -50,14 +34,16 @@ matrix:
 before_script:
     - sudo sed -i "s/^127.0.1.1.*/127.0.1.1\t$HOSTNAME.example.com\t$HOSTNAME/" /etc/hosts
     - cat /etc/fstab
-    - sudo apt-get -yqq update
-    - sudo apt-get -yqq dist-upgrade
-    - sudo apt-get -yqq install systemd
+    #- sudo apt-get -yqq update
+    #- sudo apt-get -yqq dist-upgrade
+    #- sudo apt-get -yqq install systemd
 
 script:
+# Run tests in Container
+- tests/setup_tests.sh ${OS_VERSION}
     - echo "y" | sudo bash install.sh
     - curl -IkL "https://$HOSTNAME:8080"
-    # - bash -c 'shopt -s globstar; shellcheck -s bash **/*.sh'
+    - bash -c 'shopt -s globstar; shellcheck -s bash **/*.sh'
 
 after_script:
     - cat /etc/fstab
