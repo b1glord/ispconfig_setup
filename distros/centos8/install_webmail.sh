@@ -6,7 +6,7 @@ InstallWebmail() {
   case $CFG_WEBMAIL in
 	"roundcube")
 	  echo -n "Installing Webmail client (Roundcube)... "
-	  dnf -y install roundcubemail
+	  dnf_install roundcubemail
 	  mysql -u root -p$CFG_MYSQL_ROOT_PWD -e 'CREATE DATABASE '$ROUNDCUBE_DB';'
 	  mysql -u root -p$CFG_MYSQL_ROOT_PWD -e "CREATE USER '$ROUNDCUBE_USER'@localhost IDENTIFIED BY '$ROUNDCUBE_PWD'"
 	  mysql -u root -p$CFG_MYSQL_ROOT_PWD -e 'GRANT ALL PRIVILEGES on '$ROUNDCUBE_DB'.* to '$ROUNDCUBE_USER'@localhost'
@@ -90,7 +90,7 @@ InstallWebmail() {
 	  echo -e "\n${red}Sorry but SquirrelMail is not yet supported.${NC}" >&2
 	  echo -e "For more information, see this issue: https://github.com/servisys/ispconfig_setup/issues/68\n"
 	  # echo "dictionaries-common dictionaries-common/default-wordlist select american (American English)" | debconf-set-selections
-	  # apt-get -y install squirrelmail wamerican
+	  dnf_install squirrelmail
 	  # ln -s /etc/squirrelmail/apache.conf /etc/apache2/conf.d/squirrelmail
 	  # sed -i 1d /etc/squirrelmail/apache.conf
 	  # sed -i '1iAlias /webmail /usr/share/squirrelmail' /etc/squirrelmail/apache.conf
