@@ -87,13 +87,13 @@ InstallWebmail() {
 	;;
 	"squirrelmail")
 	  echo -n "Installing Webmail client (SquirrelMail)... "
-	  echo -e "\n${red}Sorry but SquirrelMail is not yet supported.${NC}" >&2
-	  echo -e "For more information, see this issue: https://github.com/servisys/ispconfig_setup/issues/68\n"
+	 # echo -e "\n${red}Sorry but SquirrelMail is not yet supported.${NC}" >&2
+	 # echo -e "For more information, see this issue: https://github.com/servisys/ispconfig_setup/issues/68\n"
 	  # echo "dictionaries-common dictionaries-common/default-wordlist select american (American English)" | debconf-set-selections
 	  dnf_install squirrelmail
-	  # ln -s /etc/squirrelmail/apache.conf /etc/apache2/conf.d/squirrelmail
-	  # sed -i 1d /etc/squirrelmail/apache.conf
-	  # sed -i '1iAlias /webmail /usr/share/squirrelmail' /etc/squirrelmail/apache.conf
+	  ln -s /etc/squirrelmail/apache.conf /etc/apache2/conf.d/squirrelmail
+	  sed -i 1d /etc/squirrelmail/apache.conf
+	  sed -i '1iAlias /webmail /usr/share/squirrelmail' /etc/squirrelmail/apache.conf
 
 	  # case $CFG_MTA in
 		# "courier")
