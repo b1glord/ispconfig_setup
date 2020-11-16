@@ -4,7 +4,7 @@
 #---------------------------------------------------------------------
 InstallMailman() {
   echo -n "Installing Mailman... ";
-	dnf -y install mailman
+	dnf_install mailman
 	
 #Fix for mailman virtualtable - need also without mailman
 	mkdir /etc/mailman/
