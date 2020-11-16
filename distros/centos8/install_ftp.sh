@@ -7,7 +7,7 @@ InstallFTP() {
 	dnf --enablerepo=epel -y install pure-ftpd
   systemctl enable pure-ftpd.service
   systemctl start pure-ftpd.service 
-  dnf -y install openssl
+  dnf_install openssl
   sed -i 's/# TLS                      1/TLS                      1/' /etc/pure-ftpd/pure-ftpd.conf
   
   mkdir -p /etc/ssl/private/
