@@ -4,7 +4,7 @@
 #---------------------------------------------------------------------
 InstallQuota() {
 	echo -n "Installing Quota... "
-	dnf -y install quota
+	dnf_install quota
 	echo -e "[${green}DONE${NC}]\n"
 
 	if ! [ -f /proc/user_beancounters ]; then
