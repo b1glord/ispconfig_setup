@@ -5,8 +5,8 @@
 InstallSQLServer() {
   echo -n "Installing Database server (MariaDB)... "
   curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash -s -- --mariadb-server-version="mariadb-10.4"
-  dnf -y update
-  dnf -y install mariadb-server expect
+  dnf_update
+  dnf_install mariadb-server expect
   systemctl enable mariadb.service
   systemctl start mariadb.service
 SECURE_MYSQL=$(expect -c "

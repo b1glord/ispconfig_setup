@@ -4,8 +4,8 @@
 #---------------------------------------------------------------------
 InstallAntiVirus() {
   echo -n "Installing Antivirus utilities (Amavisd-new, ClamAV), Spam filtering (SpamAssassin) and Greylisting (Postgrey)... "
-	dnf -y install clamav clamav-update
-	dnf -y install spamassassin postgrey
+	dnf_install clamav clamav-update
+	dnf_install spamassassin postgrey
 # Configure Clamd
 	sed -i "s/#Example/Example/" /etc/clamd.d/scan.conf
 	sed -i "s%#LogFile /var/log/clamd.scan%LogFile /var/log/clamd.scan%" /etc/clamd.d/scan.conf

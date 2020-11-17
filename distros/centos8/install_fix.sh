@@ -11,7 +11,7 @@ chmod 755 /tmp/centos_rhel_install.sh​
 	echo -e "[${green}DONE${NC}]\n"
   fi
   if [ $CFG_DKIM == "n" ]; then
-	dnf -y install opendkim
+	dnf_install opendkim
 
 	fi
 	echo -e "[${green}DONE${NC}]\n"

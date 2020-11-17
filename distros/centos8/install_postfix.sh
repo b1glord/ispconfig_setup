@@ -4,7 +4,7 @@
 #---------------------------------------------------------------------
 InstallPostfix() {
   echo -n "Installing SMTP Mail server (Postfix)... "
-  dnf -y install postfix
+  dnf_install postfix
 
   systemctl enable postfix
   systemctl start postfix

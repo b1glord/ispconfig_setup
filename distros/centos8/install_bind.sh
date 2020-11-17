@@ -4,11 +4,11 @@
 #---------------------------------------------------------------------
 InstallBind() {
   echo -n "Installing DNS server (Bind)... ";
-    dnf -y install bind bind-utils 
+    dnf_install bind bind-utils 
 
  #echo -n "Installing haveged... ";
  #https://github.com/jirka-h/haveged
-    dnf -y install haveged
+    dnf_install haveged
     
     systemctl enable named
     systemctl start named

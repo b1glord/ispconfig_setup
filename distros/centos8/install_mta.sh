@@ -13,11 +13,11 @@ InstallMTA() {
 	  ;;
 	"dovecot")
 	  echo -n "Installing POP3/IMAP Mail server (Dovecot)... ";
-	  dnf -y install dovecot dovecot-mysql dovecot-pigeonhole
+	  dnf_install dovecot dovecot-mysql dovecot-pigeonhole
 	  touch /etc/dovecot/dovecot-sql.conf
 	  ln -s /etc/dovecot/dovecot-sql.conf /etc/dovecot-sql.conf
 	  systemctl enable dovecot
-      systemctl start dovecot
+          systemctl start dovecot
 	  echo -e "[${green}DONE${NC}]\n"
 	  ;;
   esac

@@ -13,7 +13,7 @@ InstallWebServer() {
 	sed -i '/; Note: This value is mandatory./a listen = 9000' /etc/php-fpm.d/www.conf
 
   echo -n "Installing PHP and Modules... "
-	dnf_install   php
+	dnf_install php
 	dnf_install php-gd php-fpm php-pdo php-gmp php-dbg php-pdo php-xml php-cli php-dba php-soap php-snmp php-ldap php-pear php-intl php-json php-odbc php-devel php-pgsql php-common php-recode php-bcmath php-xmlrpc php-mysqlnd php-enchant php-process php-opcache php-mbstring php-pecl-zip php-embedded php-pecl-apcu php-pecl-apcu-devel
   echo -e "[${green}DONE${NC}]\n"
 	sed -i "s/error_reporting = E_ALL \& ~E_DEPRECATED \& ~E_STRICT/error_reporting = E_ALL \& ~E_NOTICE \& ~E_DEPRECATED/" /etc/php.ini
@@ -50,10 +50,7 @@ fi
   	CFG_NGINX=y
 	CFG_APACHE=n
   echo -n "Installing Web server (nginx)... "
-	dnf -y install nginx varnish
-	sed -i "s/        listen       80 default_server;/        listen       8090 default_server;/" /etc/nginx/nginx.conf
-	sed -i "s/VARNISH_LISTEN_PORT=6081/VARNISH_LISTEN_PORT=80/" /etc/varnish/varnish.params
-	sed -i 's/    .port = "8080";/    .port = "8090";/' /etc/varnish/default.vcl
+	dnf_install nginx
 	
 	systemctl stop httpd.service
 	systemctl disable httpd.service
@@ -61,11 +58,10 @@ fi
 	systemctl enable varnish.service
 
   echo -n "Installing PHP 7 and modules... "
-	dnf -y install php
+	dnf_install php
   
   echo -n "Installing PHP modules... "
-dnf -y install php-gd php-fpm php-pdo php-gmp php-dbg php-pdo php-xml php-cli php-dba php-soap php-snmp php-ldap php-pear php-intl php-json php-odbc php-devel php-pgsql php-common php-recode php-bcmath php-xmlrpc php-mysqlnd php-enchant php-process php-opcache php-mbstring php-pecl-zip php-embedded php-pecl-apcu php-pecl-apcu-devel
-	
+dnf_install php-gd php-fpm php-pdo php-gmp php-dbg php-pdo php-xml php-cli php-dba php-soap php-snmp php-ldap php-pear php-intl php-json php-odbc php-devel php-pgsql php-common php-recode php-bcmath php-xmlrpc php-mysqlnd php-enchant php-process php-opcache php-mbstring php-pecl-zip php-embedded php-pecl-apcu php-pecl-apcu-devel
 
 	sed -i "/; error_reporting/ a error_reporting = E_ALL & ~E_NOTICE" /etc/php.ini
 	TIME_ZONE=$(echo "$TIME_ZONE" | sed -n 's/ (.*)$//p')
@@ -79,7 +75,7 @@ dnf -y install php-gd php-fpm php-pdo php-gmp php-dbg php-pdo php-xml php-cli ph
 	systemctl start varnish.service
 	
   echo -n "Installing fcgiwrap... "
-	dnf -y install fcgiwrap spawn-fcgi fcgi-devel
+	dnf_install fcgiwrap spawn-fcgi fcgi-devel
 
 
 # modify the /etc/sysconfig/spawn-fcgi file as follows:
@@ -116,6 +112,6 @@ echo 'OPTIONS="-u $FCGI_USER -g $FCGI_GROUP -s $FCGI_SOCKET -S $FCGI_EXTRA_OPTIO
   echo -e "${green}done! ${NC}\n"
 
   echo -n "Installing Let's Encrypt (Certbot)... "
-	  dnf -y install certbot
+	  dnf_install certbot
 echo -e "[${green}DONE${NC}]\n"
 }

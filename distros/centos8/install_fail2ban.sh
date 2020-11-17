@@ -4,7 +4,7 @@
 #---------------------------------------------------------------------
 InstallFail2ban() {
   echo -n "Installing Intrusion protection (Fail2Ban) and Rootkit detection (rkhunter)... "
-	dnf -y install fail2ban rkhunter fail2ban-systemd iptables-services
+	dnf_install fail2ban rkhunter fail2ban-systemd iptables-services
 
   systemctl stop firewalld.service
   systemctl mask firewalld.service
