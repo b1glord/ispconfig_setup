@@ -25,6 +25,7 @@ if [ $CFG_VCACHE = "yes" ]; then
 # Setting Up Nginx Service
   systemctl stop nginx.service
 	sed -i "s/        listen       80 default_server;/        listen       8090 default_server;/" /etc/nginx/nginx.conf
+  sed -i "s/        listen       [::]:80 default_server;/        listen       [::]:8090 default_server;/" /etc/nginx/nginx.conf
   systemctl start nginx.service
   systemctl start varnish.service
 
