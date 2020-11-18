@@ -4,7 +4,7 @@
 #---------------------------------------------------------------------
 InstallWebStats() {
   echo -n "Installing Statistics (Webalizer and AWStats)... ";
-  dnf_install webalizer awstats perl-DateTime-Format-HTTP perl-DateTime-Format-Builder
+  #dnf_install webalizer awstats perl-DateTime-Format-HTTP perl-DateTime-Format-Builder
   echo -e "[${green}DONE${NC}]\n"
 }
 
