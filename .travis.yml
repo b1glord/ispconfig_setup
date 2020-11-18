@@ -17,7 +17,8 @@ before_install:
   - sudo service docker restart
   - sleep 3
 
-script: ./tests/docker_tests.sh
+script: 
+  - sudo ./tests/docker_tests.sh
   
 matrix:
   include:
