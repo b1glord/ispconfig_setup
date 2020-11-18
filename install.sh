@@ -349,7 +349,7 @@ elif [ -f /etc/redhat-release ]; then # /etc/centos-release
 		InstallAntiVirus
 	fi
 	InstallWebServer
-	if [ "$CFG_VCACHE" == "yes" ]; then
+	if [ "$CFG_VARNISH" == "yes" ]; then
 	source $APWD/distros/$DISTRO/install_varnish.sh
 	InstallVarnish
 	fi
