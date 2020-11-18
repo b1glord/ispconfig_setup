@@ -1,24 +1,35 @@
-sudo: required
-
+dist: bionic
+language: bash
+services: docker
+git:
+  quiet: true
 env:
-  #matrix:
-  - OS_TYPE=centos OS_VERSION=7 ANSIBLE_VERSION=1.9.2
+  global:
+    - DOCKER="docker"
+    - TARGETS=""
+matrix:
+  include:
+    # https://hub.docker.com/_/centos/
+    - name: centos_8
+      env: DOCKERFILE="ci/Dockerfile-centos" IMAGE="centos:8" TOXENV="py36-cov,py27-cov"
+    - name: centos_7
+      env: DOCKERFILE="ci/Dockerfile-centos" IMAGE="centos:7" TOXENV="py36,py34-cov,py27"
+  allow_failures:
+    - name: fedora_rawhide
+  fast_finish: true
   
-services:
-  - docker
-
 before_install:
-  - sudo apt-get update
-  - sudo apt-get upgrade lxc-docker
-  - echo 'DOCKER_OPTS="-H tcp://127.0.0.1:2375 -H unix:///var/run/docker.sock -s devicemapper"' | sudo tee /etc/default/docker > /dev/null
-  - sudo service docker restart
-  - sleep 5
-  - sudo docker pull weldpua2008/docker-ansible:${OS_TYPE}${OS_VERSION}_v${ANSIBLE_VERSION}
-
-script:
- # Run tests in Container
- - sudo docker run --rm=true -v `pwd`:/ansible-apache:rw weldpua2008/docker-ansible:${OS_TYPE}${OS_VERSION}_v${ANSIBLE_VERSION} /bin/bash -c "/ansible-apache/tests/test-in-docker-image.sh ${OS_TYPE} ${OS_VERSION} ${ANSIBLE_VERSION}"
-
+  - |
+    if [ "${DOCKER}" = "podman" ]; then
+      ci/install_podman_on_ubuntu.sh
+    fi
+    
+install: |
+  travis_retry make ${TARGETS}
+  
+script: |
+  make test
+  
 matrix:
   include:
   - name: "MySQL SQL server, Apache web server and Dovecot mail server"
