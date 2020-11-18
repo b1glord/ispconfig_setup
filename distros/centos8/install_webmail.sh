@@ -6,7 +6,7 @@ InstallWebmail() {
   case $CFG_WEBMAIL in
 	"roundcube")
 	  echo -n "Installing Webmail client (Roundcube)... "
-	  dnf_install roundcubemail
+	  #dnf -y install roundcubemail
 	  mysql -u root -p$CFG_MYSQL_ROOT_PWD -e 'CREATE DATABASE '$ROUNDCUBE_DB';'
 	  mysql -u root -p$CFG_MYSQL_ROOT_PWD -e "CREATE USER '$ROUNDCUBE_USER'@localhost IDENTIFIED BY '$ROUNDCUBE_PWD'"
 	  mysql -u root -p$CFG_MYSQL_ROOT_PWD -e 'GRANT ALL PRIVILEGES on '$ROUNDCUBE_DB'.* to '$ROUNDCUBE_USER'@localhost'
