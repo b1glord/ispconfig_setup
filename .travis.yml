@@ -1,19 +1,13 @@
-language: bash
-
-dist: trusty
-
 sudo: required
 
+env:
+  - distribution: centos
+    version: 7
+  - distribution: centos
+    version: 8
+    
 services:
   - docker
-
-env:
-  global:
-    - COMMIT=${TRAVIS_COMMIT::8}
-    - REPO=centos-nodejs
-    - CGO_ENABLED=0
-    - GOOS=linux
-    - GOARCH=amd64
 
 before_install:
   - sudo chmod +x ./tests/docker_tests.sh
