@@ -5,7 +5,7 @@
 InstallBasics() {
   echo -n "Updating yum package database and upgrading currently installed packages... "
 	dnf_install epel-release
-	dnf_update 
+	dnf -y update 
   echo -e "[${green}DONE${NC}]\n"
 
   echo -n "Installing basic packages... "
