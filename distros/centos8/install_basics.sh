@@ -17,7 +17,7 @@ InstallBasics() {
   echo -e "[${green}DONE${NC}]\n"
   
   echo -n "Installing Development Tools... "
-  dnf groupinstall "Development Tools" 
+  dnf -y groupinstall "Development Tools" 
   dnf -y update
   echo -e "[${green}DONE${NC}]\n"
 }
