@@ -116,6 +116,51 @@ InstallWebmail() {
 	  echo -n "Restarting Apache... "
 	  systemctl restart httpd.service
   elif [ "$CFG_WEBSERVER" == "nginx" ]; then
+
+    cat << "EOF" > /etc/nginx/sites-available/roundcube.vhost
+server {
+   # SSL configuration
+   listen 443 ssl;
+
+   ssl on;
+   ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+   ssl_certificate /usr/local/ispconfig/interface/ssl/ispserver.crt;
+   ssl_certificate_key /usr/local/ispconfig/interface/ssl/ispserver.key;
+
+   location /roundcube {
+      root /var/lib/;
+      index index.php index.html index.htm;
+      location ~ ^/roundcube/(.+\.php)$ {
+        try_files $uri =404;
+        root /var/lib/;
+        include /etc/nginx/fastcgi_params;
+        # To access SquirrelMail, the default user (like www-data on Debian/Ubuntu) mu$
+        #fastcgi_pass 127.0.0.1:9000;
+        fastcgi_pass unix:/var/run/php/php-fpm.sock;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_buffer_size 128k;
+        fastcgi_buffers 256 4k;
+        fastcgi_busy_buffers_size 256k;
+        fastcgi_temp_file_write_size 256k;
+      }
+      location ~* ^/roundcube/(.+\.(jpg|jpeg|gif|css|png|js|ico|html|xml|txt))$ {
+        root /var/lib/;
+      }
+      location ~* /.svn/ {
+        deny all;
+      }
+      location ~* /README|INSTALL|LICENSE|SQL|bin|CHANGELOG$ {
+        deny all;
+      }
+   }
+   location /webmail {
+     rewrite ^/* /roundcube last;
+   }
+}
+EOF
+	ln -s /etc/nginx/sites-available/roundcube.vhost /etc/nginx/sites-enabled/roundcube.vhost
+
 	  echo -n "Restarting nginx... "
 	  service nginx restart
   fi
