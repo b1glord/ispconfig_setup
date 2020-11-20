@@ -11,9 +11,11 @@ services:
 before_install:
   - sleep 5
   - sudo docker pull centos:centos${OS_VERSION}
-
-script: 
+  - docker run -ti -v /sys/fs/cgroup:/sys/fs/cgroup:ro -p 80:80 local/c7-systemd-httpd
   - sudo ./tests/docker_tests.sh
+
+#script: 
+
   
 matrix:
   include:
