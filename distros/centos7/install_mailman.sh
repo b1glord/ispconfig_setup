@@ -10,7 +10,7 @@ InstallMailman() {
         postalias /etc/mailman/aliases
 	# Get mailman in the path so that the ISPConfig installer detects it
 	ln -s /usr/lib/mailman/mail/mailman /usr/bin/mailman
-
+  touch /etc/nginx/sites-available/default
   cat > /etc/nginx/sites-available/default << EOF
 ##
 # You should look at the following URL's in order to grasp a solid understanding
