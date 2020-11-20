@@ -116,6 +116,7 @@ InstallWebmail() {
 	  echo -n "Restarting Apache... "
 	  systemctl restart httpd.service
   elif [ "$CFG_WEBSERVER" == "nginx" ]; then
+    mkdir /etc/nginx/sites-available/
 	touch /etc/nginx/sites-available/roundcube.vhost
     cat << "EOF" > /etc/nginx/sites-available/roundcube.vhost
 server {
