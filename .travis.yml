@@ -1,15 +1,16 @@
 sudo: required
 
-#matrix:
-   env:
-  - distribution: centos
-    version: 7
-    
+env:
+  matrix:
+  - OS_TYPE=centos OS_VERSION=7
+  - OS_TYPE=centos OS_VERSION=8
+
 services:
   - docker
 
 before_install:
-  - docker pull centos:7.9.2009
+  - sleep 5
+  - sudo docker pull centos:centos${OS_VERSION}
 
 script: 
   - sudo ./tests/docker_tests.sh
