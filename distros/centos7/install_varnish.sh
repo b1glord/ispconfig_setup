@@ -15,7 +15,7 @@ if [ $CFG_VCACHE = "yes" ]; then
 # Setting Up Apache Service
   systemctl stop httpd.service
   sed -i "s/Listen 80/Listen 8090/" /etc/httpd/conf/httpd.conf
-  systemctl start httpd.service
+  systemctl restart httpd.service
   systemctl start varnish.service
 
   elif [ "$CFG_WEBSERVER" == "nginx" ]; then
@@ -26,7 +26,7 @@ if [ $CFG_VCACHE = "yes" ]; then
   systemctl stop nginx.service
 	sed -i "s/        listen       80 default_server;/        listen       8090 default_server;/" /etc/nginx/nginx.conf
   sed -i "s/        listen       [::]:80 default_server;/        listen       [::]:8090 default_server;/" /etc/nginx/nginx.conf
-  systemctl start nginx.service
+  systemctl restart nginx.service
   systemctl start varnish.service
 
   echo -e "${green}done! ${NC}\n"
