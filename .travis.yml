@@ -1,40 +1,33 @@
 sudo: required
 
-env:
-  matrix:
-  - OS_TYPE=centos OS_VERSION=7
-  - OS_TYPE=centos OS_VERSION=8
-
 services:
   - docker
+  
+env:
+  - distribution: centos
+    version: 7
+  - distribution: fedora
+    version: 26
+  - distribution: fedora
+    version: 25
+  - distribution: fedora
+    version: 24
+  - distribution: ubuntu
+    version: xenial
+  - distribution: ubuntu
+    version: trusty
+  - distribution: debian
+    version: stretch
+  - distribution: debian
+    version: jessie
 
 before_install:
-  - sudo apt-get update
-  # Pull containers
-  - sudo docker pull centos:7
-  - sudo docker pull ubuntu:14.04
-  # Customize containers
-  - sudo docker build --rm=true --file=Dockerfile.centos --tag=centos:ansible .
-  - sudo docker build --rm=true --file=Dockerfile.ubuntu --tag=ubuntu:ansible .
+  - 'sudo docker pull ${distribution}:${version}'
+  - 'sudo docker build --no-cache --rm --file=travis/Dockerfile.${distribution}-${version} --tag=${distribution}-${version}:ansible travis'
 
 script:
-  #
-  # Run test playbook on Ubuntu container
-  #
-  - sudo docker run ubuntu:ansible ansible-playbook /etc/ansible/test.yml --syntax-check
-  - sudo docker run ubuntu:ansible ansible-playbook /etc/ansible/test.yml
-
-  #
-  # Run test playbook on CentOS container
-  #
-
-  # Run container in detached state
-  - sudo docker run --detach --privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro centos:ansible /usr/lib/systemd/systemd > "${CONTAINER_ID}"
-
-  - sudo docker exec "$(cat ${CONTAINER_ID})" ansible-playbook /etc/ansible/test.yml --syntax-check
-  - sudo docker exec "$(cat ${CONTAINER_ID})" ansible-playbook /etc/ansible/test.yml
-  # Clean up
-  - sudo docker stop "$(cat ${CONTAINER_ID})"
+  - container_id=$(mktemp)
+  - 'sudo docker run --detach --privileged -v /sys/fs/cgroup:/sys/fs/cgroup:ro --volume="${PWD}":/etc/ansible/roles/nginx_role:ro ${distribution}-${version}:ansible > "${container_id}"'
   
 matrix:
   include:
