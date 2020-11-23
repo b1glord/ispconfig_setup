@@ -1,4 +1,1 @@
----
-- hosts: all
-  roles:
-    - geerlingguy.apache
+  - 'sudo docker exec "$(cat ${container_id})" env ANSIBLE_FORCE_COLOR=1 ansible-playbook -v /etc/ansible/roles/nginx_role/travis/test.yml --syntax-check'
