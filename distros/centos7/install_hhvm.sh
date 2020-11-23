@@ -20,7 +20,11 @@ After=network.target nginx.service mariadb.service
  
 [Service]
 ExecStart=/usr/local/bin/hhvm --config /etc/hhvm/server.ini --mode daemon -vServer.Type=fastcgi -vServer.FileSocket=/var/log/hhvm/hhvm.sock
- 
+Restart=always
+# Restart service after 10 seconds if the hhvm service crashes:
+RestartSec=10
+KillSignal=SIGINT
+
 [Install]
 WantedBy=multi-user.target
 EOF
