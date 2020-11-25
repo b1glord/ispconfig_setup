@@ -6,7 +6,7 @@ InstallWebmail() {
   case $CFG_WEBMAIL in
 	"roundcube")
 	  echo -n "Installing Webmail client (Roundcube)... "
-	  yum_install roundcubemail
+	  #dnf -y install roundcubemail
 	  mysql -u root -p$CFG_MYSQL_ROOT_PWD -e 'CREATE DATABASE '$ROUNDCUBE_DB';'
 	  mysql -u root -p$CFG_MYSQL_ROOT_PWD -e "CREATE USER '$ROUNDCUBE_USER'@localhost IDENTIFIED BY '$ROUNDCUBE_PWD'"
 	  mysql -u root -p$CFG_MYSQL_ROOT_PWD -e 'GRANT ALL PRIVILEGES on '$ROUNDCUBE_DB'.* to '$ROUNDCUBE_USER'@localhost'
@@ -64,7 +64,7 @@ InstallWebmail() {
 		echo "                   fastcgi_param   REDIRECT_STATUS         200;" >> /etc/nginx/roundcube.conf
 		echo "                   # To access SquirrelMail, the default user (like www-data on Debian/Ubuntu) mu\$" >> /etc/nginx/roundcube.conf
 		echo "                   #fastcgi_pass 127.0.0.1:9000;" >> /etc/nginx/roundcube.conf
-		echo "                   fastcgi_pass unix:/var/run/php-fpm.sock;" >> /etc/nginx/roundcube.conf
+		echo "                   fastcgi_pass unix:/var/run/php5-fpm.sock;" >> /etc/nginx/roundcube.conf
 		echo "                   fastcgi_index index.php;" >> /etc/nginx/roundcube.conf
 		echo "                   fastcgi_param SCRIPT_FILENAME \$document_root\$fastcgi_script_name;" >> /etc/nginx/roundcube.conf
 		echo "                   fastcgi_buffer_size 128k;" >> /etc/nginx/roundcube.conf
@@ -87,28 +87,31 @@ InstallWebmail() {
 	;;
 	"squirrelmail")
 	  echo -n "Installing Webmail client (SquirrelMail)... "
-	  yum_install squirrelmail	
+	  rpm -Uvh http://rpmfind.net/linux/epel/7/x86_64/Packages/s/squirrelmail-1.4.23-1.el7.20190710.noarch.rpm
+	  ln -s /etc/squirrelmail/apache.conf /etc/apache2/conf.d/squirrelmail
+	  sed -i 1d /etc/squirrelmail/apache.conf
+	  sed -i '1iAlias /webmail /usr/share/squirrelmail' /etc/squirrelmail/apache.conf
 
-	   case $CFG_MTA in
-		 "courier")
-		   sed -i 's/$imap_server_type       = "other";/$imap_server_type       = "courier";/' /etc/squirrelmail/config.php
-		   sed -i 's/$optional_delimiter     = "detect";/$optional_delimiter     = ".";/' /etc/squirrelmail/config.php
-		   sed -i 's/$default_folder_prefix          = "";/$default_folder_prefix          = "INBOX.";/' /etc/squirrelmail/config.php
-		   sed -i 's/$trash_folder                   = "INBOX.Trash";/$trash_folder                   = "Trash";/' /etc/squirrelmail/config.php
-		   sed -i 's/$sent_folder                    = "INBOX.Sent";/$sent_folder                    = "Sent";/' /etc/squirrelmail/config.php
-		   sed -i 's/$draft_folder                   = "INBOX.Drafts";/$draft_folder                   = "Drafts";/' /etc/squirrelmail/config.php
-		   sed -i 's/$default_sub_of_inbox           = true;/$default_sub_of_inbox           = false;/' /etc/squirrelmail/config.php
-		   sed -i 's/$delete_folder                  = false;/$delete_folder                  = true;/' /etc/squirrelmail/config.php
-		   ;;
-		 "dovecot")
-		   sed -i 's/$imap_server_type       = "other";/$imap_server_type       = "dovecot";/' /etc/squirrelmail/config.php
-		   sed -i 's/$trash_folder                   = "INBOX.Trash";/$trash_folder                   = "Trash";/' /etc/squirrelmail/config.php
-		   sed -i 's/$sent_folder                    = "INBOX.Sent";/$sent_folder                    = "Sent";/' /etc/squirrelmail/config.php
-		   sed -i 's/$draft_folder                   = "INBOX.Drafts";/$draft_folder                   = "Drafts";/' /etc/squirrelmail/config.php
-		   sed -i 's/$default_sub_of_inbox           = true;/$default_sub_of_inbox           = false;/' /etc/squirrelmail/config.php
-		   sed -i 's/$delete_folder                  = false;/$delete_folder                  = true;/' /etc/squirrelmail/config.php
-		   ;;
-	   esac
+	  # case $CFG_MTA in
+		# "courier")
+		  # sed -i 's/$imap_server_type       = "other";/$imap_server_type       = "courier";/' /etc/squirrelmail/config.php
+		  # sed -i 's/$optional_delimiter     = "detect";/$optional_delimiter     = ".";/' /etc/squirrelmail/config.php
+		  # sed -i 's/$default_folder_prefix          = "";/$default_folder_prefix          = "INBOX.";/' /etc/squirrelmail/config.php
+		  # sed -i 's/$trash_folder                   = "INBOX.Trash";/$trash_folder                   = "Trash";/' /etc/squirrelmail/config.php
+		  # sed -i 's/$sent_folder                    = "INBOX.Sent";/$sent_folder                    = "Sent";/' /etc/squirrelmail/config.php
+		  # sed -i 's/$draft_folder                   = "INBOX.Drafts";/$draft_folder                   = "Drafts";/' /etc/squirrelmail/config.php
+		  # sed -i 's/$default_sub_of_inbox           = true;/$default_sub_of_inbox           = false;/' /etc/squirrelmail/config.php
+		  # sed -i 's/$delete_folder                  = false;/$delete_folder                  = true;/' /etc/squirrelmail/config.php
+		  # ;;
+		# "dovecot")
+		  # sed -i 's/$imap_server_type       = "other";/$imap_server_type       = "dovecot";/' /etc/squirrelmail/config.php
+		  # sed -i 's/$trash_folder                   = "INBOX.Trash";/$trash_folder                   = "Trash";/' /etc/squirrelmail/config.php
+		  # sed -i 's/$sent_folder                    = "INBOX.Sent";/$sent_folder                    = "Sent";/' /etc/squirrelmail/config.php
+		  # sed -i 's/$draft_folder                   = "INBOX.Drafts";/$draft_folder                   = "Drafts";/' /etc/squirrelmail/config.php
+		  # sed -i 's/$default_sub_of_inbox           = true;/$default_sub_of_inbox           = false;/' /etc/squirrelmail/config.php
+		  # sed -i 's/$delete_folder                  = false;/$delete_folder                  = true;/' /etc/squirrelmail/config.php
+		  # ;;
+	  # esac
 	  ;;
   esac
   echo -e "[${green}DONE${NC}]\n"
@@ -116,55 +119,8 @@ InstallWebmail() {
 	  echo -n "Restarting Apache... "
 	  systemctl restart httpd.service
   elif [ "$CFG_WEBSERVER" == "nginx" ]; then
-    mkdir /etc/nginx/sites-available/
-	touch /etc/nginx/sites-available/roundcube.vhost
-    cat << "EOF" > /etc/nginx/sites-available/roundcube.vhost
-server {
-   # SSL configuration
-   listen 443 ssl;
-
-   ssl on;
-   ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
-   ssl_certificate /usr/local/ispconfig/interface/ssl/ispserver.crt;
-   ssl_certificate_key /usr/local/ispconfig/interface/ssl/ispserver.key;
-
-   location /roundcube {
-      root /var/lib/;
-      index index.php index.html index.htm;
-      location ~ ^/roundcube/(.+\.php)$ {
-        try_files $uri =404;
-        root /var/lib/;
-        include /etc/nginx/fastcgi_params;
-        # To access SquirrelMail, the default user (like www-data on Debian/Ubuntu) mu$
-        #fastcgi_pass 127.0.0.1:9000;
-        fastcgi_pass unix:/var/run/php/php-fpm.sock;
-        fastcgi_index index.php;
-        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
-        fastcgi_buffer_size 128k;
-        fastcgi_buffers 256 4k;
-        fastcgi_busy_buffers_size 256k;
-        fastcgi_temp_file_write_size 256k;
-      }
-      location ~* ^/roundcube/(.+\.(jpg|jpeg|gif|css|png|js|ico|html|xml|txt))$ {
-        root /var/lib/;
-      }
-      location ~* /.svn/ {
-        deny all;
-      }
-      location ~* /README|INSTALL|LICENSE|SQL|bin|CHANGELOG$ {
-        deny all;
-      }
-   }
-   location /webmail {
-     rewrite ^/* /roundcube last;
-   }
-}
-EOF
-	ln -s /etc/nginx/sites-available/roundcube.vhost /etc/nginx/sites-enabled/roundcube.vhost
-
 	  echo -n "Restarting nginx... "
 	  service nginx restart
   fi
   echo -e "[${green}DONE${NC}]\n"
 }
-

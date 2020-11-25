@@ -5,7 +5,7 @@
 AskQuestions() {
 	if ! command -v whiptail >/dev/null; then
 		echo -n "Installing whiptail... "
-		yum_install newt
+		dnf_install newt
 		echo -e "[${green}DONE${NC}]\n"
 	fi
 
@@ -47,9 +47,9 @@ AskQuestions() {
 
 	if [[ ! "$CFG_VCACHE" =~ $RE ]]; then
 	if (whiptail --title "Varnish Cache" --backtitle "$WT_BACKTITLE" --nocancel --radiolist "Do you want to install Varnish Cache?" 10 50 2 "no" "(default)" ON "yes" "" OFF 3>&1 1>&2 2>&3) then
-			CFG_VARNISH=yes
+			CFG_VCACHE=yes
 		else
-			CFG_VARNISH=no
+			CFG_VCACHE=no
 		fi
 	fi
 

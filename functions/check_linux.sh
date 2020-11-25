@@ -164,15 +164,32 @@ CheckLinux() {
 		elif echo "$VERSION_ID" | grep -iq "18.04"; then
 			DISTRO=ubuntu-18.04
 		fi
+		
+	elif echo "$ID" | grep -iq "pardus"; then
+		
+		#---------------------------------------------------------------------
+		#	Pardus 19
+		#---------------------------------------------------------------------
+
+		if echo "$VERSION_ID" | grep -iq "19"; then
+			DISTRO=pardus19
+		fi
 	
 	elif echo "$ID" | grep -iq "centos"; then
 	
 		#---------------------------------------------------------------------
-		#	CentOS
+		#	CentOS 7
 		#---------------------------------------------------------------------
 
 		if echo "$VERSION_ID" | grep -iq "7"; then
 			DISTRO=centos7
+		
+		#---------------------------------------------------------------------
+		#	CentOS 8
+		#---------------------------------------------------------------------
+
+		elif echo "$VERSION_ID" | grep -iq "8"; then
+			DISTRO=centos8
 		fi
 	
 	elif echo "$ID" | grep -iq "opensuse"; then
