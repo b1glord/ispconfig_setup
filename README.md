@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/b1glord/ispconfig_setup.svg?branch=master)](https://travis-ci.org/b1glord/ispconfig_setup)
+
 # README #
 
 [![PayPayl donate button](https://www.paypalobjects.com/it_IT/IT/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=TB4Q3UJDC5JDJ "Help US support this project using Paypal")
@@ -616,22 +618,15 @@ Follow one of the above guides to install a fresh copy of a supported Linux dist
 
 Run the following command:
 
-* Pardus/Debian/Raspbian 7, 8 and 9 and Ubuntu 14.04, 15.10, 16.04, 16.10 and 18.04
+* Debian/Raspbian 7, 8 and 9 and Ubuntu 14.04, 15.10, 16.04, 16.10 and 18.04
 
 ```shell
-cd /tmp; wget -O installer.tgz "https://github.com/b1glord/ispconfig_setup/tarball/centos8"; tar zxvf installer.tgz; cd *ispconfig*; sudo bash install.sh
+cd /tmp; wget -O installer.tgz "https://github.com/b1glord/ispconfig_setup/tarball/master"; tar zxvf installer.tgz; cd *ispconfig*; sudo bash install.sh
 ```
-
-* CentOS 8 Pre-Alpha
-
-```shell
-cd /tmp; sudo wget -O installer.tgz "https://github.com/b1glord/ispconfig_setup/tarball/centos8"; tar zxvf installer.tgz; cd *ispconfig*; sudo bash install.sh
-```
-
-* CentOS 7 Nginx Support Test 
+* CentOS 7
 
 ```shell
-cd /tmp; sudo yum -y install wget unzip net-tools; wget -O installer.tgz "https://github.com/b1glord/ispconfig_setup/tarball/centos8"; tar zxvf installer.tgz; cd *ispconfig*; sudo bash install.sh
+cd /tmp; sudo yum -y install wget unzip net-tools; wget -O installer.tgz "https://github.com/b1glord/ispconfig_setup/tarball/master"; tar zxvf installer.tgz; cd *ispconfig*; sudo bash install.sh
 ```
 
 CentOS 7 is in a very early stage, we got to test a bit, any help will be appreciated. 
