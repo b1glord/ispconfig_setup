@@ -87,10 +87,7 @@ InstallWebmail() {
 	;;
 	"squirrelmail")
 	  echo -n "Installing Webmail client (SquirrelMail)... "
-	 # echo -e "\n${red}Sorry but SquirrelMail is not yet supported.${NC}" >&2
-	 # echo -e "For more information, see this issue: https://github.com/servisys/ispconfig_setup/issues/68\n"
-	  # echo "dictionaries-common dictionaries-common/default-wordlist select american (American English)" | debconf-set-selections
-	  dnf_install squirrelmail
+	  rpm -Uvh http://rpmfind.net/linux/epel/7/x86_64/Packages/s/squirrelmail-1.4.23-1.el7.20190710.noarch.rpm
 	  ln -s /etc/squirrelmail/apache.conf /etc/apache2/conf.d/squirrelmail
 	  sed -i 1d /etc/squirrelmail/apache.conf
 	  sed -i '1iAlias /webmail /usr/share/squirrelmail' /etc/squirrelmail/apache.conf
