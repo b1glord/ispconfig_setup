@@ -16,12 +16,11 @@ InstallPostfix() {
   if [ "$CFG_WEBSERVER" == "apache" ]; then
 	CFG_NGINX=n
 	CFG_APACHE=y
-sed -i "s/    #user =/    user = postfix/" /etc/dovecot/conf.d/10-master.conf
-sed -i "s/    #group =/    group = postfix/" /etc/dovecot/conf.d/10-master.conf
-fi
-    elif [ "$CFG_WEBSERVER" == "nginx" ]; then
-  	CFG_NGINX=y
-	  CFG_APACHE=n
+    sed -i "s/    #user =/    user = postfix/" /etc/dovecot/conf.d/10-master.conf
+    sed -i "s/    #group =/    group = postfix/" /etc/dovecot/conf.d/10-master.conf
+  elif [ "$CFG_WEBSERVER" == "nginx" ]; then
+  CFG_NGINX=y
+	CFG_APACHE=n
 sed -i "s/    #user =/    user = postfix/" /etc/dovecot/conf.d/10-master.conf
 sed -i "s/    #group =/    group = postfix/" /etc/dovecot/conf.d/10-master.conf
 fi
