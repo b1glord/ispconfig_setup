@@ -8,7 +8,7 @@ InstallBasics() {
   echo -e "[${green}DONE${NC}]\n"
 
   echo -n "Installing basic packages... "
-	dnf_install nano net-tools NetworkManager-tui selinux-policy which unzip bzip2 perl-DBD-mysql which
+	dnf_install nano net-tools NetworkManager-tui selinux-policy which unzip bzip2 perl-DBD-mysql
   echo -e "[${green}DONE${NC}]\n"
   
   echo -n "Disabling Firewall... "
