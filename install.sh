@@ -349,6 +349,7 @@ elif [ -f /etc/redhat-release ]; then # /etc/centos-release
 	if [ "$CFG_ANTIVIRUS" == "yes" ]; then
 		InstallAntiVirus
 	fi
+	InstallWebserver
 	if [ "$CFG_VARNISH" == "yes" ]; then
 	source $APWD/distros/$DISTRO/install_varnish.sh
 	InstallVarnish
