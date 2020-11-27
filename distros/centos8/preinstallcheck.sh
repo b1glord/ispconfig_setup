@@ -12,7 +12,7 @@ PreInstallCheck() {
 
 	if [ "$(getsebool 2>&1)" != "getsebool:  SELinux is disabled" ]; then
 		sed -i "s/SELINUX=enforcing/SELINUX=disabled/" /etc/selinux/config
-		#sed -i "s/SELINUX=permissive/SELINUX=disabled/" /etc/selinux/config
+		sed -i "s/SELINUX=permissive/SELINUX=disabled/" /etc/selinux/config
 
 		echo -e "\n${red}Attention your SELINUX was enabled, we had modified your configuration.${NC}"
 		echo -e "${red}Before restart ISPConfig setup please reboot the server.${NC}"
@@ -34,3 +34,5 @@ PreInstallCheck() {
 	
 	echo -e "[${green}DONE${NC}]\n"
 }
+
+
