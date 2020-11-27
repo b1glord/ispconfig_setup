@@ -345,11 +345,10 @@ elif [ -f /etc/redhat-release ]; then # /etc/centos-release
 	fi
 	InstallSQLServer
 	InstallMTA
-	InstallWebServer
 	if [ "$CFG_ANTIVIRUS" == "yes" ]; then
 		InstallAntiVirus
 	fi
-	InstallWebserver
+	InstallWebServer
 	if [ "$CFG_VARNISH" == "yes" ]; then
 	source $APWD/distros/$DISTRO/install_varnish.sh
 	InstallVarnish
