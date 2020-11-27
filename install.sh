@@ -337,18 +337,18 @@ elif [ -f /etc/redhat-release ]; then # /etc/centos-release
 	read DUMMY
 	source $APWD/distros/$DISTRO/install_mailman.sh
 	PreInstallCheck
-	AskQuestions 
-	InstallBasics 
-	InstallPostfix 
+	AskQuestions
+	InstallBasics
+	InstallPostfix
 	if [ "$CFG_MAILMAN" == "yes" ]; then
 		InstallMailman
 	fi
-	InstallSQLServer 
-	InstallMTA 
+	InstallSQLServer
+	InstallMTA
+	InstallWebServer
 	if [ "$CFG_ANTIVIRUS" == "yes" ]; then
 		InstallAntiVirus
 	fi
-	InstallWebServer
 	if [ "$CFG_VARNISH" == "yes" ]; then
 	source $APWD/distros/$DISTRO/install_varnish.sh
 	InstallVarnish
