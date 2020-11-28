@@ -164,7 +164,16 @@ EOF
 
 	  echo -n "Restarting nginx... "
 	  service nginx restart
-  fi
+fi
+
+if [ "$CFG_WEBSERVER" == "apache" ]; then
+    sed -i "s/    #user =/    user = postfix/" /etc/dovecot/conf.d/10-master.conf
+    sed -i "s/    #group =/    group = postfix/" /etc/dovecot/conf.d/10-master.conf
+elif [ "$CFG_WEBSERVER" == "nginx" ]; then
+	sed -i "s/    #user =/    user = postfix/" /etc/dovecot/conf.d/10-master.conf
+	sed -i "s/    #group =/    group = postfix/" /etc/dovecot/conf.d/10-master.conf
+fi
+
   echo -e "[${green}DONE${NC}]\n"
 }
 
