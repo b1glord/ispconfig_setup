@@ -47,9 +47,9 @@ AskQuestions() {
 
 	if [[ ! "$CFG_VCACHE" =~ $RE ]]; then
 	if (whiptail --title "Varnish Cache" --backtitle "$WT_BACKTITLE" --nocancel --radiolist "Do you want to install Varnish Cache?" 10 50 2 "no" "(default)" ON "yes" "" OFF 3>&1 1>&2 2>&3) then
-			CFG_VARNISH=yes
-		else
 			CFG_VARNISH=no
+		else
+			CFG_VARNISH=yes
 		fi
 	fi
 
