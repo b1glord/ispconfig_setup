@@ -4,7 +4,7 @@
 #---------------------------------------------------------------------
 InstallSQLServer() {
   echo -n "Installing Database server (MariaDB)... "
-  curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash -s -- --mariadb-server-version="mariadb-10.5"
+  curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash -s -- --mariadb-server-version="mariadb-10.2.36"
   yum_install mariadb-server expect
   systemctl enable mariadb.service
   systemctl start mariadb.service
