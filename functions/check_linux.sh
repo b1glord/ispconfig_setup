@@ -172,7 +172,7 @@ CheckLinux() {
 		#---------------------------------------------------------------------
 
 		if echo "$VERSION_ID" | grep -iq "19"; then
-			DISTRO=pardus19
+			DISTRO=debian10
 		fi
 	
 	elif echo "$ID" | grep -iq "centos"; then
