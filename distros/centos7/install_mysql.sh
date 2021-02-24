@@ -4,10 +4,17 @@
 #---------------------------------------------------------------------
 InstallSQLServer() {
   echo -n "Installing Database server (MariaDB)... "
-  curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash -s -- --mariadb-server-version="mariadb-10.0"
-  yum_install mariadb-server expect
-  systemctl enable mariadb.service
-  systemctl start mariadb.service
+  #curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash -s -- --mariadb-server-version="mariadb-10.5"
+  #yum_install mariadb-server expect
+  #systemctl enable mariadb.service
+  #systemctl start mariadb.service
+  
+  echo -n "Installing Database server (Mysql)... "
+  rpm -ivh https://dev.mysql.com/get/mysql80-community-release-el7-3.noarch.rpm
+  yum_install mysql-server expect
+  systemctl enable mysql.service
+  systemctl start mysql.service
+  
 SECURE_MYSQL=$(expect -c "
 set timeout 3
 spawn mysql_secure_installation
